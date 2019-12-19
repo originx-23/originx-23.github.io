@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>And Now: Hugo Pipes! :: Xover — 予欲无言, 夫复何言?</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Hugo `0.43` adds a powerful and very simple to use **Assets Pipeline** with **SASS and SCSS** with source map support, **PostCSS** and **minification** and **fingerprinting** and **Subresource Integrity** and ... much more. Oh, did we mention that you can now do **ad-hoc image processing** and execute text resources as Go templates? An example pipeline:
+{{ $styles := resources.Get &amp;#34;scss/main.scss&amp;#34; | toCSS | postCSS | minify | fingerprint }}&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;{{ $styles."/>
+<meta name="keywords" content="霸天毅行"/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://example.com/posts/news/0.43-relnotes/" />
+
+
+<link rel="stylesheet" href="https://example.com/assets/style.css">
+
+  <link rel="stylesheet" href="https://example.com/assets/blue.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://example.com/img/apple-touch-icon-144-precomposed.png">
+
+<link rel="shortcut icon" href="https://example.com/img/favicon/blue.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="And Now: Hugo Pipes! :: Xover — 予欲无言, 夫复何言?" />
+<meta name="twitter:description" content="Hugo `0.43` adds a powerful and very simple to use **Assets Pipeline** with **SASS and SCSS** with source map support, **PostCSS** and **minification** and **fingerprinting** and **Subresource Integrity** and ... much more. Oh, did we mention that you can now do **ad-hoc image processing** and execute text resources as Go templates? An example pipeline:
+{{ $styles := resources.Get &amp;#34;scss/main.scss&amp;#34; | toCSS | postCSS | minify | fingerprint }}&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;{{ $styles." />
+<meta name="twitter:site" content="https://example.com/" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image" content="">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="And Now: Hugo Pipes! :: Xover — 予欲无言, 夫复何言?">
+<meta property="og:description" content="Hugo `0.43` adds a powerful and very simple to use **Assets Pipeline** with **SASS and SCSS** with source map support, **PostCSS** and **minification** and **fingerprinting** and **Subresource Integrity** and ... much more. Oh, did we mention that you can now do **ad-hoc image processing** and execute text resources as Go templates? An example pipeline:
+{{ $styles := resources.Get &amp;#34;scss/main.scss&amp;#34; | toCSS | postCSS | minify | fingerprint }}&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;{{ $styles." />
+<meta property="og:url" content="https://example.com/posts/news/0.43-relnotes/" />
+<meta property="og:site_name" content="And Now: Hugo Pipes!" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+<meta property="article:section" content="Releases" />
+<meta property="article:published_time" content="2018-07-09 00:00:00 &#43;0000 UTC" />
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="">
+
+
+<div class="container center">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    Xover
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/showcase">Showcase</a></li>
+        
+      
+      
+    
+
+    
+    <div class="spacer"></div>
+    <ul class="language-selector">
+      <ul class="language-selector-current">
+          <li> ▾</li>
+      </ul>
+      <ul class="language-selector__more hidden">
+        
+        <li><a href="https://example.com/"></a></li>
+        
+        <li><a href="https://example.com/ch/"></a></li>
+        
+      </ul>
+    </ul>
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+      
+        <li><a href="/showcase">Showcase</a></li>
+      
+    
+    
+    <hr />
+        
+          <li>
+            <a href="https://example.com/"></a>
+          </li>
+        
+          <li>
+            <a href="https://example.com/ch/"></a>
+          </li>
+        
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="https://example.com/posts/news/0.43-relnotes/">And Now: Hugo Pipes!</a></h1>
+  <div class="post-meta">
+      
+    <span class="post-date">
+      2018-07-09
+    </span>
+    
+    
+  </div>
+
+  
+
+  
+
+  <div class="post-content">
+    <pre><code>Hugo `0.43` adds a powerful and very simple to use **Assets Pipeline** with **SASS and SCSS** with source map support, **PostCSS** and **minification** and **fingerprinting** and **Subresource Integrity** and ... much more. Oh, did we mention that you can now do **ad-hoc image processing** and execute text resources as Go templates?
+</code></pre>
+<p>An example pipeline:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go-html-template" data-lang="go-html-template"><span style="color:#75715e">{{</span> <span style="color:#a6e22e">$styles</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">resources</span><span style="color:#a6e22e">.Get</span> <span style="color:#e6db74">&#34;scss/main.scss&#34;</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">toCSS</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">postCSS</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">minify</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">fingerprint</span> <span style="color:#75715e">}}</span>
+&lt;<span style="color:#f92672">link</span> <span style="color:#a6e22e">rel</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;stylesheet&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#75715e">{{</span> <span style="color:#a6e22e">$styles</span><span style="color:#a6e22e">.Permalink</span> <span style="color:#75715e">}}</span><span style="color:#e6db74">&#34;</span> <span style="color:#a6e22e">integrity</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#75715e">{{</span> <span style="color:#a6e22e">$styles</span><span style="color:#a6e22e">.Data.Integrity</span> <span style="color:#75715e">}}</span><span style="color:#e6db74">&#34;</span> <span style="color:#a6e22e">media</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;screen&#34;</span>&gt;
+</code></pre></div><p>To me, the above is beautiful in its speed and simplicity. It could be printed on a t-shirt. I wrote in the <a href="https://gohugo.io/news/lets-celebrate-hugos-5th-birthday/">Hugo Birthday Post</a> some days ago about the value of a single binary with native and fast implementations. I should have added <em>simplicity</em> as a keyword. There seem to be a misconception that all of this needs to be hard and painful.</p>
+<p>New functions to create <code>Resource</code> objects:</p>
+<ul>
+<li><code>resources.Get</code></li>
+<li><code>resources.FromString</code>: Create a Resource from a string.</li>
+</ul>
+<p>New <code>Resource</code> transformation funcs:</p>
+<ul>
+<li><code>resources.ToCSS</code>: Compile <code>SCSS</code> or <code>SASS</code> into <code>CSS</code>.</li>
+<li><code>resources.PostCSS</code>: Process your CSS with PostCSS. Config file support (project or theme or passed as an option).</li>
+<li><code>resources.Minify</code>: Currently supports <code>css</code>, <code>js</code>, <code>json</code>, <code>html</code>, <code>svg</code>, <code>xml</code>.</li>
+<li><code>resources.Fingerprint</code>: Creates a fingerprinted version of the given Resource with Subresource Integrity.</li>
+<li><code>resources.Concat</code>: Concatenates a list of Resource objects. Think of this as a poor man's bundler.</li>
+<li><code>resources.ExecuteAsTemplate</code>: Parses and executes the given Resource and data context (e.g. .Site) as a Go template.</li>
+</ul>
+<p>I, <a href="https://github.com/bep">@bep</a>, implemented this in <a href="https://github.com/gohugoio/hugo/commit/dea71670c059ab4d5a42bd22503f18c087dd22d4">dea71670</a>. We will work hard to get the documentation up to date, but follow the links above for details, and also see this <a href="https://github.com/bep/hugo-sass-test">demo project</a>.</p>
+<p>This release represents <strong>35 contributions by 7 contributors</strong> to the main Hugo code base.
+<a href="https://github.com/bep">@bep</a> leads the Hugo development with a significant amount of contributions, but also a big shoutout to <a href="https://github.com/anthonyfok">@anthonyfok</a>, <a href="https://github.com/openscript">@openscript</a>, and <a href="https://github.com/caarlos0">@caarlos0</a> for their ongoing contributions.
+And a big thanks to <a href="https://github.com/digitalcraftsman">@digitalcraftsman</a> for his relentless work on keeping the themes site in pristine condition and to <a href="https://github.com/kaushalmodi">@kaushalmodi</a> for his great work on the documentation site.</p>
+<p>Many have also been busy writing and fixing the documentation in <a href="https://github.com/gohugoio/hugoDocs">hugoDocs</a>, 
+which has received <strong>11 contributions by 5 contributors</strong>. A special thanks to <a href="https://github.com/bep">@bep</a>, <a href="https://github.com/danrl">@danrl</a>, <a href="https://github.com/regisphilibert">@regisphilibert</a>, and <a href="https://github.com/digitalcraftsman">@digitalcraftsman</a> for their work on the documentation site.</p>
+<p>Hugo now has:</p>
+<ul>
+<li>26968+ <a href="https://github.com/gohugoio/hugo/stargazers">stars</a></li>
+<li>443+ <a href="https://github.com/gohugoio/hugo/graphs/contributors">contributors</a></li>
+<li>238+ <a href="http://themes.gohugo.io/">themes</a></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Replace deprecated {Get,}ByPrefix with {Get,}Match <a href="https://github.com/gohugoio/hugo/commit/42ed602580a672e420e1d860384e812f4871ff67">42ed6025</a> <a href="https://github.com/anthonyfok">@anthonyfok</a></li>
+<li>Hugo is now released with two binary version: One with and one without SCSS/SASS support. At the time of writing, this is only available in the binaries on the GitHub release page. Brew, Snap builds etc. will come. But note that you <strong>only need the extended version if you want to edit SCSS</strong>. For your CI server, or if you don't use SCSS, you will most likely want the non-extended version.</li>
+</ul>
+<h2 id="enhancements">Enhancements</h2>
+<h3 id="templates">Templates</h3>
+<ul>
+<li>Return en empty slice in <code>after</code> instead of error <a href="https://github.com/gohugoio/hugo/commit/f8212d20009c4b5cc6e1ec733d09531eb6525d9f">f8212d20</a> <a href="https://github.com/bep">@bep</a> <a href="https://github.com/gohugoio/hugo/issues/4894">#4894</a></li>
+<li>Update internal pagination template to support Bootstrap 4 <a href="https://github.com/gohugoio/hugo/commit/ca1e46efb94e3f3d2c8482cb9434d2f38ffd2683">ca1e46ef</a> <a href="https://github.com/bep">@bep</a> <a href="https://github.com/gohugoio/hugo/issues/4881">#4881</a></li>
+<li>Support text/template/parse API change in go1.11 <a href="https://github.com/gohugoio/hugo/commit/9f27091e1067875e2577c331acc60adaef5bb234">9f27091e</a> <a href="https://github.com/anthonyfok">@anthonyfok</a> <a href="https://github.com/gohugoio/hugo/issues/4784">#4784</a></li>
+</ul>
+<h3 id="core">Core</h3>
+<ul>
+<li>Allow forward slash in shortcode names <a href="https://github.com/gohugoio/hugo/commit/de37455ec73cffd039b44e8f6c62d2884b1d6bbd">de37455e</a> <a href="https://github.com/bep">@bep</a> <a href="https://github.com/gohugoio/hugo/issues/4886">#4886</a></li>
+<li>Reset the global pages cache on server rebuilds <a href="https://github.com/gohugoio/hugo/commit/128f14efad90886ffef37c01ac1e20436a732f97">128f14ef</a> <a href="https://github.com/bep">@bep</a> <a href="https://github.com/gohugoio/hugo/issues/4845">#4845</a></li>
+</ul>
+<h3 id="other">Other</h3>
+<ul>
+<li>Bump CircleCI image <a href="https://github.com/gohugoio/hugo/commit/e3df6478f09a7a5fed96aced791fa94fd2c35d1a">e3df6478</a> <a href="https://github.com/bep">@bep</a></li>
+<li>Add Goreleaser extended config <a href="https://github.com/gohugoio/hugo/commit/626afc98254421f5a5edc97c541b10bd81d5bbbb">626afc98</a> <a href="https://github.com/bep">@bep</a> <a href="https://github.com/gohugoio/hugo/issues/4908">#4908</a></li>
+<li>Build both hugo and hugo.extended for 0.43 <a href="https://github.com/gohugoio/hugo/commit/e1027c5846b48c4ad450f6cc27e2654c9e0dae39">e1027c58</a> <a href="https://github.com/anthonyfok">@anthonyfok</a> <a href="https://github.com/gohugoio/hugo/issues/4908">#4908</a></li>
+<li>Add temporary build script <a href="https://github.com/gohugoio/hugo/commit/bfc3488b8e8b3dc1ffc6a339ee2dac8dcbdb55a9">bfc3488b</a> <a href="https://github.com/bep">@bep</a></li>
+<li>Add &ldquo;extended&rdquo; to &ldquo;hugo version&rdquo; <a href="https://github.com/gohugoio/hugo/commit/ce84b524f4e94299b5b66afe7ce1a9bd4a9959fc">ce84b524</a> <a href="https://github.com/anthonyfok">@anthonyfok</a> <a href="https://github.com/gohugoio/hugo/issues/4913">#4913</a></li>
+<li>Add a newScratch template func <a href="https://github.com/gohugoio/hugo/commit/2b8d907ab731627f4e2a30442cd729064516c8bb">2b8d907a</a> <a href="https://github.com/bep">@bep</a> <a href="https://github.com/gohugoio/hugo/issues/4685">#4685</a></li>
+<li>Add Hugo Piper with SCSS support and much more <a href="https://github.com/gohugoio/hugo/commit/dea71670c059ab4d5a42bd22503f18c087dd22d4">dea71670</a> <a href="https://github.com/bep">@bep</a> <a href="https://github.com/gohugoio/hugo/issues/4381">#4381</a><a href="https://github.com/gohugoio/hugo/issues/4903">#4903</a><a href="https://github.com/gohugoio/hugo/issues/4858">#4858</a></li>
+<li>Consider root and current section's content type if set in front matter <a href="https://github.com/gohugoio/hugo/commit/c790029e1dbb0b66af18d05764bd6045deb2e180">c790029e</a> <a href="https://github.com/bep">@bep</a> <a href="https://github.com/gohugoio/hugo/issues/4891">#4891</a></li>
+<li>Update docker image <a href="https://github.com/gohugoio/hugo/commit/554553c09c7657d28681e1fa0638806a452737a0">554553c0</a> <a href="https://github.com/bep">@bep</a></li>
+<li>Merge branch &lsquo;release-0.42.2&rsquo; <a href="https://github.com/gohugoio/hugo/commit/282f6035e7c36f8550d91033e3a66718468c6c8b">282f6035</a> <a href="https://github.com/bep">@bep</a></li>
+<li>Release 0.42.2 <a href="https://github.com/gohugoio/hugo/commit/1637d12e3762fc1ebab4cd675f75afaf25f59cdb">1637d12e</a> <a href="https://github.com/bep">@bep</a></li>
+<li>Update GoReleaser config <a href="https://github.com/gohugoio/hugo/commit/1f0c4e1fb347bb233f3312c424fbf5a013c03604">1f0c4e1f</a> <a href="https://github.com/caarlos0">@caarlos0</a></li>
+<li>Create missing head.html partial on new theme generation <a href="https://github.com/gohugoio/hugo/commit/fd71fa89bd6c197402582c87b2b76d4b96d562bf">fd71fa89</a> <a href="https://github.com/openscript">@openscript</a></li>
+<li>Add html doctype to baseof.html template for new themes <a href="https://github.com/gohugoio/hugo/commit/b5a3aa7082135d0a573f4fbb00f798e26b67b902">b5a3aa70</a> <a href="https://github.com/openscript">@openscript</a></li>
+<li>Adds .gitattributes to force Go files to LF <a href="https://github.com/gohugoio/hugo/commit/6a2968fd5c0116d93de0f379ac615e9076821899">6a2968fd</a> <a href="https://github.com/neurocline">@neurocline</a></li>
+<li>Update to Go 1.9.7 and Go 1.10.3 <a href="https://github.com/gohugoio/hugo/commit/23d5fc82ee01d56440d0991c899acd31e9b63e27">23d5fc82</a> <a href="https://github.com/anthonyfok">@anthonyfok</a></li>
+<li>Update Dockerfile to a multi-stage build <a href="https://github.com/gohugoio/hugo/commit/8531ec7ca36fd35a57fba06bbb06a65c94dfd3ed">8531ec7c</a> <a href="https://github.com/skoblenick">@skoblenick</a> <a href="https://github.com/gohugoio/hugo/issues/4154">#4154</a></li>
+<li>Release 0.42.1 <a href="https://github.com/gohugoio/hugo/commit/d67e843c1212e1f53933556b5f946c8541188d9a">d67e843c</a> <a href="https://github.com/bep">@bep</a></li>
+<li>Do not fail server build when /static is missing <a href="https://github.com/gohugoio/hugo/commit/34ee27a78b9e2b5f475d44253ae234067b76cc6e">34ee27a7</a> <a href="https://github.com/bep">@bep</a> <a href="https://github.com/gohugoio/hugo/issues/4846">#4846</a></li>
+</ul>
+<h2 id="fixes">Fixes</h2>
+<ul>
+<li>Do not create paginator pages for the other output formats <a href="https://github.com/gohugoio/hugo/commit/43338c3a99769eb7d0df0c12559b8b3d42b67dba">43338c3a</a> <a href="https://github.com/bep">@bep</a> <a href="https://github.com/gohugoio/hugo/issues/4890">#4890</a></li>
+<li>Fix the shortcodes/partials vs base template detection <a href="https://github.com/gohugoio/hugo/commit/a5d0a57e6bdab583134a68c035aac9b3007f006a">a5d0a57e</a> <a href="https://github.com/bep">@bep</a> <a href="https://github.com/gohugoio/hugo/issues/4897">#4897</a></li>
+<li>nfpm replacements <a href="https://github.com/gohugoio/hugo/commit/e1a052ecb823c688406a8af97dfaaf52a75231da">e1a052ec</a> <a href="https://github.com/caarlos0">@caarlos0</a></li>
+<li>Fix typos <a href="https://github.com/gohugoio/hugo/commit/3cea2932e17a08ebc19cd05f3079d9379bc8fba5">3cea2932</a> <a href="https://github.com/idealhack">@idealhack</a></li>
+</ul>
+
+  </div>
+  
+  <div class="pagination">
+    <div class="pagination__title">
+      <span
+        class="pagination__title-h">Read other posts</span>
+      <hr />
+    </div>
+    <div class="pagination__buttons">
+      
+      <span class="button previous">
+        <a href="https://example.com/posts/news/0.44-relnotes/">
+          <span class="button__icon">←</span>
+          <span class="button__text">Hugo 0.44: Friday the 13th Edition</span>
+        </a>
+      </span>
+      
+      
+      <span class="button next">
+        <a href="https://example.com/posts/news/http2-server-push-in-hugo/">
+          <span class="button__text">HTTP/2 Server Push in Hugo</span>
+          <span class="button__icon">→</span>
+        </a>
+      </span>
+      
+    </div>
+  </div>
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="https://example.com/assets/main.js"></script>
+<script src="https://example.com/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
