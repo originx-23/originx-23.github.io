@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on My New Hugo Site</title>
-    <link>http://example.org/post/</link>
+    <link>https://originx-23.github.io/post/</link>
     <description>Recent content in Posts on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="http://example.org/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://originx-23.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title></title>
-      <link>http://example.org/post/%E6%96%97%E9%B9%B0%E8%AE%A1%E5%88%92/</link>
+      <link>https://originx-23.github.io/post/%E6%96%97%E9%B9%B0%E8%AE%A1%E5%88%92/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/post/%E6%96%97%E9%B9%B0%E8%AE%A1%E5%88%92/</guid>
+      <guid>https://originx-23.github.io/post/%E6%96%97%E9%B9%B0%E8%AE%A1%E5%88%92/</guid>
       <description>斗鹰计划  本计划为高度机密, 公开日期: 待定.
  计划核心 建立淘宝店.
 核心思想: 不是赚钱, 是服务.
