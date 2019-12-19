@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Xover</title>
-    <link>https://example.com/</link>
+    <link>https://originx-23.github.io/</link>
     <description>Recent content on Xover</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ch-zh</language>
     <lastBuildDate>Fri, 25 Jan 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://originx-23.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About</title>
-      <link>https://example.com/about/</link>
+      <link>https://originx-23.github.io/about/</link>
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/about/</guid>
+      <guid>https://originx-23.github.io/about/</guid>
       <description>Hi there My name is Radek and I&#39;m the author of this theme. I made it to help you present your ideas easier.
 We all know how hard is to start something on the web, especially these days. You need to prepare a bunch of stuff, configure them and when that’s done — create the content.
 This theme is pretty basic and covers all of the essentials. All you have to do is start typing!</description>
@@ -24,20 +24,20 @@ This theme is pretty basic and covers all of the essentials. All you have to do 
     
     <item>
       <title>Hello Friend</title>
-      <link>https://example.com/post/hello/</link>
+      <link>https://originx-23.github.io/post/hello/</link>
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/post/hello/</guid>
+      <guid>https://originx-23.github.io/post/hello/</guid>
       <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. Donec quis dolor nec nunc mollis interdum vel in purus. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.
  Fusce pharetra suscipit orci nec tempor.</description>
     </item>
     
     <item>
       <title>The &#34;figure&#34; Shortcode</title>
-      <link>https://example.com/posts/the-figure-shortcode/</link>
+      <link>https://originx-23.github.io/posts/the-figure-shortcode/</link>
       <pubDate>Mon, 24 Dec 2018 12:29:41 +0800</pubDate>
       
-      <guid>https://example.com/posts/the-figure-shortcode/</guid>
+      <guid>https://originx-23.github.io/posts/the-figure-shortcode/</guid>
       <description>Hugo has figure shortcode built in, so you can easily add figcaptions or hyperlink rel attributes to images. Documentations can be found here:
 https://gohugo.io/content-management/shortcodes/#figure
 This theme has 3 CSS classes made for figure elements:
@@ -46,10 +46,10 @@ This theme has 3 CSS classes made for figure elements:
     
     <item>
       <title>Post With Featured Image</title>
-      <link>https://example.com/posts/post-with-featured-image/</link>
+      <link>https://originx-23.github.io/posts/post-with-featured-image/</link>
       <pubDate>Mon, 01 Oct 2018 16:15:09 +0800</pubDate>
       
-      <guid>https://example.com/posts/post-with-featured-image/</guid>
+      <guid>https://originx-23.github.io/posts/post-with-featured-image/</guid>
       <description>Just define the image URL in the content’s front matter, the featured image will be displayed as the background.
 For example:
 --- images: - https://picsum.photos/1024/768/?random --- This is an array, you can set multiple urls, only the first url will be used. These images is also used in Twitter Cards and the Open Graph metadata.</description>
@@ -57,67 +57,67 @@ For example:
     
     <item>
       <title>Typography</title>
-      <link>https://example.com/posts/typography/</link>
+      <link>https://originx-23.github.io/posts/typography/</link>
       <pubDate>Sat, 29 Sep 2018 11:36:33 +0800</pubDate>
       
-      <guid>https://example.com/posts/typography/</guid>
+      <guid>https://originx-23.github.io/posts/typography/</guid>
       <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
  An apple is a sweet, edible fruit produced by an apple tree (Malus pumila).</description>
     </item>
     
     <item>
       <title>This One Goes to 11!</title>
-      <link>https://example.com/posts/news/0.48-relnotes/</link>
+      <link>https://originx-23.github.io/posts/news/0.48-relnotes/</link>
       <pubDate>Wed, 29 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/news/0.48-relnotes/</guid>
+      <guid>https://originx-23.github.io/posts/news/0.48-relnotes/</guid>
       <description>Hugo 0.48 is built with the brand new Go 1.11. On the technical side this means that Hugo now uses Go Modules for the build. The big new functional thing in Go 1.11 for Hugo is added support for variable overwrites. This means that you can now do this and get the expected result:
 {{ $var := &amp;#34;Hugo Page&amp;#34; }}{{ if .IsHome }}{{ $var = &amp;#34;Hugo Home&amp;#34; }}{{ end }}Var is {{ $var }}The above may look obvious, but has not been possible until now.</description>
     </item>
     
     <item>
       <title>Two Bug Fixes</title>
-      <link>https://example.com/posts/news/0.47.1-relnotes/</link>
+      <link>https://originx-23.github.io/posts/news/0.47.1-relnotes/</link>
       <pubDate>Mon, 20 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/news/0.47.1-relnotes/</guid>
+      <guid>https://originx-23.github.io/posts/news/0.47.1-relnotes/</guid>
       <description>This is a bug-fix release with two fixes. Fixes  Fix .Site.Params case regression fdff0d3a @bep #5094 Do not strip IE conditional statements 5a0ee2b9 @bep #5089  Updates to Linux Snap build  Remove unused files from Git, Perl, etc. 834617f9 @anthonyfok Add nodejs to allow PostCSS to work ef20ec1f @anthonyfok  </description>
     </item>
     
     <item>
       <title>Output Minification, Live-Reload Fixes and More</title>
-      <link>https://example.com/posts/news/0.47-relnotes/</link>
+      <link>https://originx-23.github.io/posts/news/0.47-relnotes/</link>
       <pubDate>Fri, 17 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/news/0.47-relnotes/</guid>
+      <guid>https://originx-23.github.io/posts/news/0.47-relnotes/</guid>
       <description>Hugo 0.47 is named Hugo Reloaded. It adds minification support for the final rendered output (run hugo --minify), but it is mostly a bug fix release. And most notably, it fixes a set of issues with live-reloading/partial rebuilds when running hugo server. Working with bundles should now be a more pleasant experience, to pick one example.
 This release represents 35 contributions by 6 contributors to the main Hugo code base. @bep leads the Hugo development with a significant amount of contributions, but also a big shoutout to @satotake, @anthonyfok, and @coliff for their ongoing contributions.</description>
     </item>
     
     <item>
       <title>The Summer of Hugo</title>
-      <link>https://example.com/posts/news/0.46-relnotes/</link>
+      <link>https://originx-23.github.io/posts/news/0.46-relnotes/</link>
       <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/news/0.46-relnotes/</guid>
+      <guid>https://originx-23.github.io/posts/news/0.46-relnotes/</guid>
       <description>**Hugo 0.46** is the closing credits to **The Summer of Hugo**. While most people have been relaxing on the beach, Hugo has been really busy:   0.42, June 12, 2018: Theme Composition and Inheritance! 0.43, July 9, 2018: Hugo Pipes!  This was followed by some more technical follow-up releases. And today, when July has turned into August, we come with another one. It&#39;s not a big release. But with the big interest in Hugo Pipes, we felt that it was important to get this out there sooner rather than later.</description>
     </item>
     
     <item>
       <title>Hugo 0.45.1: Two Bug Fixes</title>
-      <link>https://example.com/posts/news/0.45.1-relnotes/</link>
+      <link>https://originx-23.github.io/posts/news/0.45.1-relnotes/</link>
       <pubDate>Wed, 25 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/news/0.45.1-relnotes/</guid>
+      <guid>https://originx-23.github.io/posts/news/0.45.1-relnotes/</guid>
       <description>This is a bug-fix release with a couple of important fixes (and one enhancement). Enhancements  Add Page.FirstSection 016dd4a6 @bep  Fixes  Fix .Site.GetPage regression 04d4c08d @bep #4989 Fix &amp;ldquo;borrow content from another language&amp;rdquo; issue c6b599a0 @bep #4986  </description>
     </item>
     
     <item>
       <title>Hugo 0.45: Revival of ref, relref and GetPage</title>
-      <link>https://example.com/posts/news/0.45-relnotes/</link>
+      <link>https://originx-23.github.io/posts/news/0.45-relnotes/</link>
       <pubDate>Sun, 22 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/news/0.45-relnotes/</guid>
+      <guid>https://originx-23.github.io/posts/news/0.45-relnotes/</guid>
       <description>Hugo 0.45 is the revival of ref, relref and GetPage. @vassudanagunta and @bep have done some great work improving the API and implementation for the helper functions used to get one page. Before this release, the API was a little bit clumsy and the result potentially ambiguous in some situations.
 Now you can simply do:
 {{ with .Site.GetPage &amp;#34;/blog/my-post.md&amp;#34; }}{{ .Title }}{{ end }}Or to get a section page:</description>
@@ -125,19 +125,19 @@ Now you can simply do:
     
     <item>
       <title>Showcase</title>
-      <link>https://example.com/showcase/</link>
+      <link>https://originx-23.github.io/showcase/</link>
       <pubDate>Wed, 18 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/showcase/</guid>
+      <guid>https://originx-23.github.io/showcase/</guid>
       <description>Header 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. Donec quis dolor nec nunc mollis interdum vel in purus. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.</description>
     </item>
     
     <item>
       <title>Hugo 0.44: Friday the 13th Edition</title>
-      <link>https://example.com/posts/news/0.44-relnotes/</link>
+      <link>https://originx-23.github.io/posts/news/0.44-relnotes/</link>
       <pubDate>Fri, 13 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/news/0.44-relnotes/</guid>
+      <guid>https://originx-23.github.io/posts/news/0.44-relnotes/</guid>
       <description>Hugo 0.44 is the follow-up release, or The Sequel, of the very well received 0.43 only days ago. That release added Hugo Pipes, with SCSS/SASS support, assets bundling and minification, ad-hoc image processing and much more.
 This is mostly a bug-fix release, but it also includes several important improvements.
 Many complained that their SVG images vanished when browsed from the hugo server. With Hugo Pipes MIME types suddenly got really important, but Hugo&#39;s use of Suffix was ambiguous.</description>
@@ -145,20 +145,20 @@ Many complained that their SVG images vanished when browsed from the hugo server
     
     <item>
       <title>And Now: Hugo Pipes!</title>
-      <link>https://example.com/posts/news/0.43-relnotes/</link>
+      <link>https://originx-23.github.io/posts/news/0.43-relnotes/</link>
       <pubDate>Mon, 09 Jul 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/news/0.43-relnotes/</guid>
+      <guid>https://originx-23.github.io/posts/news/0.43-relnotes/</guid>
       <description>Hugo `0.43` adds a powerful and very simple to use **Assets Pipeline** with **SASS and SCSS** with source map support, **PostCSS** and **minification** and **fingerprinting** and **Subresource Integrity** and ... much more. Oh, did we mention that you can now do **ad-hoc image processing** and execute text resources as Go templates? An example pipeline:
 {{ $styles := resources.Get &amp;#34;scss/main.scss&amp;#34; | toCSS | postCSS | minify | fingerprint }}&amp;lt;link rel=&amp;#34;stylesheet&amp;#34; href=&amp;#34;{{ $styles.</description>
     </item>
     
     <item>
       <title>HTTP/2 Server Push in Hugo</title>
-      <link>https://example.com/posts/news/http2-server-push-in-hugo/</link>
+      <link>https://originx-23.github.io/posts/news/http2-server-push-in-hugo/</link>
       <pubDate>Mon, 24 Jul 2017 18:36:00 +0200</pubDate>
       
-      <guid>https://example.com/posts/news/http2-server-push-in-hugo/</guid>
+      <guid>https://originx-23.github.io/posts/news/http2-server-push-in-hugo/</guid>
       <description>Netlify recently announced support for HTTP/2 server push, and we have now added it to the gohugo.io sites for the main CSS and JS bundles, along with server-side 301 redirect support.
 If you navigate to https://gohugo.io and look in the Chrome developer network console, you should now see Push as the new source (&amp;ldquo;Initiator&amp;rdquo;) for the CSS and JSS:
 Setting up this in Hugo was easy:
@@ -167,20 +167,20 @@ Setting up this in Hugo was easy:
     
     <item>
       <title>Creating a New Theme</title>
-      <link>https://example.com/posts/creating-a-new-theme/</link>
+      <link>https://originx-23.github.io/posts/creating-a-new-theme/</link>
       <pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/creating-a-new-theme/</guid>
+      <guid>https://originx-23.github.io/posts/creating-a-new-theme/</guid>
       <description>Introduction This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I&#39;ll explain how Hugo uses templates and how you can organize your templates to create a theme. I won&#39;t cover using CSS to style your theme.
 We&#39;ll start with creating a new site with a very basic template.</description>
     </item>
     
     <item>
       <title>About Hugo</title>
-      <link>https://example.com/about-hugo/</link>
+      <link>https://originx-23.github.io/about-hugo/</link>
       <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/about-hugo/</guid>
+      <guid>https://originx-23.github.io/about-hugo/</guid>
       <description>Hugo is the world’s fastest framework for building websites. It is written in Go.
 It makes use of a variety of open source projects including:
  https://github.com/russross/blackfriday https://github.com/alecthomas/chroma https://github.com/muesli/smartcrop https://github.com/spf13/cobra https://github.com/spf13/viper  Learn more and contribute on GitHub.</description>
@@ -188,20 +188,20 @@ It makes use of a variety of open source projects including:
     
     <item>
       <title>(Hu)go Template Primer</title>
-      <link>https://example.com/posts/goisforlovers/</link>
+      <link>https://originx-23.github.io/posts/goisforlovers/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/goisforlovers/</guid>
+      <guid>https://originx-23.github.io/posts/goisforlovers/</guid>
       <description>Hugo uses the excellent Go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in Go templates.
 This document is a brief primer on using Go templates.</description>
     </item>
     
     <item>
       <title>Getting Started with Hugo</title>
-      <link>https://example.com/posts/hugoisforlovers/</link>
+      <link>https://originx-23.github.io/posts/hugoisforlovers/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/hugoisforlovers/</guid>
+      <guid>https://originx-23.github.io/posts/hugoisforlovers/</guid>
       <description>Step 1. Install Hugo Go to Hugo releases and download the appropriate version for your OS and architecture.
 Save it somewhere specific as we will be using it in the next step.
 More complete instructions are available at Install Hugo
@@ -212,10 +212,10 @@ Follow the following steps:
     
     <item>
       <title>Migrate to Hugo from Jekyll</title>
-      <link>https://example.com/posts/migrate-from-jekyll/</link>
+      <link>https://originx-23.github.io/posts/migrate-from-jekyll/</link>
       <pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/posts/migrate-from-jekyll/</guid>
+      <guid>https://originx-23.github.io/posts/migrate-from-jekyll/</guid>
       <description>Move static content to static Jekyll has a rule that any directory not starting with _ will be copied as-is to the _site output. Hugo keeps all static content under static. You should therefore move it all there. With Jekyll, something that looked like
 ▾ &amp;lt;root&amp;gt;/ ▾ images/ logo.png  should become
 ▾ &amp;lt;root&amp;gt;/ ▾ static/ ▾ images/ logo.png  Additionally, you&#39;ll want any files that should reside at the root (such as CNAME) to be moved to static.</description>
