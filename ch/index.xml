@@ -1,11 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Xover on Xover</title>
+    <title>Xover</title>
     <link>https://originx-23.github.io/ch/</link>
-    <description>Recent content in Xover on Xover</description>
+    <description>Recent content on Xover</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ch-zh</language>
-    <atom:link href="/ch/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="https://originx-23.github.io/ch/index.xml" rel="self" type="application/rss+xml" />
+    
     
   </channel>
 </rss>
