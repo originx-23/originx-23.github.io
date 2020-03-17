@@ -1,25 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Xover</title>
+    <title>Xover on Xover</title>
     <link>https://originx-23.github.io/</link>
-    <description>Recent content on Xover</description>
+    <description>Recent content in Xover on Xover</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ch-zh</language>
     <lastBuildDate>Fri, 25 Jan 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://originx-23.github.io/index.xml" rel="self" type="application/rss+xml" />
-    
+    <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Hello Friend</title>
-      <link>https://originx-23.github.io/post/hello/</link>
+      <title>Posts</title>
+      <link>https://originx-23.github.io/post/</link>
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://originx-23.github.io/post/hello/</guid>
-      <description>  算法手打
-插入排序 def iss(a):for j in range(1, len(a)):k = a[j]i = j-1while i &amp;gt;= 0 and a[i] &amp;gt; k:a[i+1] = a[i]i = i - 1a[i + 1] = kreturn a反向: a[i] &amp;lt; k
-  </description>
+      <guid>https://originx-23.github.io/post/</guid>
+      <description></description>
     </item>
     
   </channel>

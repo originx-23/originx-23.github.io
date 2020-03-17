@@ -1,47 +1,67 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
-  <url>
-    <loc>https://originx-23.github.io/ch/categories/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://originx-23.github.io/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ch"
-                href="https://originx-23.github.io/ch/categories/"
-                />
-  </url>
+    <url>
+      <loc>https://originx-23.github.io/ch/categories/</loc>
+      
+      
+      
+      
+        
+        <xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://originx-23.github.io/categories/"
+                    />
+        
+      <xhtml:link
+                  rel="alternate"
+                  hreflang="ch"
+                  href="https://originx-23.github.io/ch/categories/"
+                  />
+      
+    </url>
   
-  <url>
-    <loc>https://originx-23.github.io/ch/tags/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://originx-23.github.io/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ch"
-                href="https://originx-23.github.io/ch/tags/"
-                />
-  </url>
+    <url>
+      <loc>https://originx-23.github.io/ch/tags/</loc>
+      
+      
+      
+      
+        
+        <xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://originx-23.github.io/tags/"
+                    />
+        
+      <xhtml:link
+                  rel="alternate"
+                  hreflang="ch"
+                  href="https://originx-23.github.io/ch/tags/"
+                  />
+      
+    </url>
   
-  <url>
-    <loc>https://originx-23.github.io/ch/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://originx-23.github.io/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="ch"
-                href="https://originx-23.github.io/ch/"
-                />
-  </url>
+    <url>
+      <loc>https://originx-23.github.io/ch/</loc>
+      
+      
+      
+      
+        
+        <xhtml:link
+                    rel="alternate"
+                    hreflang="en"
+                    href="https://originx-23.github.io/"
+                    />
+        
+      <xhtml:link
+                  rel="alternate"
+                  hreflang="ch"
+                  href="https://originx-23.github.io/ch/"
+                  />
+      
+    </url>
   
 </urlset>
