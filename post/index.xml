@@ -17,8 +17,9 @@
       <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://originx-23.github.io/post/hello/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec interdum metus. Aenean rutrum ligula sodales ex auctor, sed tempus dui mollis. Curabitur ipsum dui, aliquet nec commodo at, tristique eget ante. Donec quis dolor nec nunc mollis interdum vel in purus. Sed vitae leo scelerisque, sollicitudin elit sed, congue ante. In augue nisl, vestibulum commodo est a, tristique porttitor est. Proin laoreet iaculis ornare. Nullam ut neque quam.
- Fusce pharetra suscipit orci nec tempor.</description>
+      <description>  算法手打
+插入排序 def iss(a):for j in range(1, len(a)):k = a[j]i = j-1while i &amp;gt;= 0 and a[i] &amp;gt; k:a[i+1] = a[i]i = i - 1a[i + 1] = kreturn a反向: a[i] &amp;lt; k
+  </description>
     </item>
     
   </channel>
