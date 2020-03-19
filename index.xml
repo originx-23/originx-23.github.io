@@ -5,21 +5,27 @@
     <link>https://originx-23.github.io/</link>
     <description>Recent content on Xover</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ch-zh</language>
-    <lastBuildDate>Fri, 25 Jan 2019 00:00:00 +0000</lastBuildDate>
+    <language>zh-ch</language>
+    <copyright>© 2020. Theme by &lt;a href=&#34;https://github.com/MeiK2333/github-style&#34;&gt;&lt;span&gt;github-style&lt;/span&gt;&lt;/a&gt;</copyright>
+    <lastBuildDate>Thu, 19 Mar 2020 11:41:16 +0800</lastBuildDate>
     
 	<atom:link href="https://originx-23.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Hello Friend</title>
-      <link>https://originx-23.github.io/post/hello/</link>
-      <pubDate>Fri, 25 Jan 2019 00:00:00 +0000</pubDate>
+      <title>Openstack Attach Volume Flow</title>
+      <link>https://originx-23.github.io/post/openstack-attach-volume-flow/</link>
+      <pubDate>Thu, 19 Mar 2020 11:41:16 +0800</pubDate>
       
-      <guid>https://originx-23.github.io/post/hello/</guid>
-      <description>  算法手打
-插入排序 def iss(a):for j in range(1, len(a)):k = a[j]i = j-1while i &amp;gt;= 0 and a[i] &amp;gt; k:a[i+1] = a[i]i = i - 1a[i + 1] = kreturn a反向: a[i] &amp;lt; k
-  </description>
+      <guid>https://originx-23.github.io/post/openstack-attach-volume-flow/</guid>
+      <description>Openstack attach volume flow Nova服务 Nova组件为OpenStack提供计算服务(Compute as Service)，类似AWS的EC2服务。Nova管理的主要对象为云主机（server)，用户可通过Nova API申请云主机(server)资源。云主机通常对应一个虚拟机，但不是绝对，也有可能是一个容器(docker driver)或者裸机(对接ironic driver)。
+Cinder服务 Cinder组件为OpenStack提供块存储服务(Block Storage as Service)，类似AWS的EBS服务。Cinder管理的主要对象为数据卷(volume)，用户通过Cinder API可以对volume执行创建、删除、扩容、快照、备份等操作。
+Cinder目前最典型的应用场景就是为Nova云主机提供云硬盘功能，用户可以把一个volume卷挂载到Nova的云主机中，当作云主机的一个虚拟块设备使用。
+Cinder除了能够为Nova云主机提供云硬盘功能，还能为裸机、容器等提供数据卷功能。
+如何挂载块设备到虚拟机 iSCSI设备需要先把lun设备映射到宿主机本地，然后当做本地设备挂载即可。 会创建一个xml文件，例如：
+&amp;lt;disk type=&amp;#39;block&amp;#39; device=&amp;#39;disk&amp;#39;&amp;gt; &amp;lt;driver name=&amp;#39;qemu&amp;#39; type=&amp;#39;raw&amp;#39; cache=&amp;#39;none&amp;#39; io=&amp;#39;native&amp;#39;/&amp;gt; &amp;lt;source dev=&amp;#39;/dev/disk/by-path/ip-10.0.0.2:3260-iscsi-iqn.2010-10.org.openstack:volume-2ed1b04c-b34f-437d-9aa3-3feeb683d063-lun-0&amp;#39;/&amp;gt; &amp;lt;target dev=&amp;#39;vdb&amp;#39; bus=&amp;#39;virtio&amp;#39;/&amp;gt; &amp;lt;serial&amp;gt;2ed1b04c-b34f-437d-9aa3-3feeb683d063&amp;lt;/serial&amp;gt; &amp;lt;address type=&amp;#39;pci&amp;#39; domain=&amp;#39;0x0000&amp;#39; bus=&amp;#39;0x00&amp;#39; slot=&amp;#39;0x06&amp;#39; function=&amp;#39;0x0&amp;#39;/&amp;gt; &amp;lt;/disk&amp;gt; 其中 source就是lun设备映射到本地的路径。
+如果是分布式存储，以Ceph rbd为例，可以直接挂载rbd image（宿主机需要包含rbd内核模块），通过rbd协议访问image，而不需要先map到宿主机本地，一个demo xml文件为:
+&amp;lt;disk type=&amp;#39;network&amp;#39; device=&amp;#39;disk&amp;#39;&amp;gt; &amp;lt;driver name=&amp;#39;qemu&amp;#39; type=&amp;#39;raw&amp;#39; cache=&amp;#39;writeback&amp;#39;/&amp;gt; &amp;lt;auth username=&amp;#39;admin&amp;#39;&amp;gt; &amp;lt;secret type=&amp;#39;ceph&amp;#39; uuid=&amp;#39;bdf77f5d-bf0b-1053-5f56-cd76b32520dc&amp;#39;/&amp;gt; &amp;lt;/auth&amp;gt; &amp;lt;source protocol=&amp;#39;rbd&amp;#39; name=&amp;#39;nova-pool/962b8560-95c3-4d2d-a77d-e91c44536759_disk&amp;#39;&amp;gt; &amp;lt;host name=&amp;#39;10.0.0.2&amp;#39; port=&amp;#39;6789&amp;#39;/&amp;gt; &amp;lt;host name=&amp;#39;10.0.0.3&amp;#39; port=&amp;#39;6789&amp;#39;/&amp;gt; &amp;lt;host name=&amp;#39;10.</description>
     </item>
     
   </channel>

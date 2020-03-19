@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+<head>
+    <meta charset="utf-8">
+    <link crossorigin="anonymous" media="all"
+        rel="stylesheet"
+        href="https://originx-23.github.io/css/frameworks.css" />
+    <link crossorigin="anonymous" media="all"
+        rel="stylesheet" href="https://originx-23.github.io/css/github.css" />
+    <meta name="viewport" content="width=device-width">
+
+    <title>Openstack Attach Volume Flow - Xover</title>
+
+    <link rel="icon" type="image/x-icon" class="js-site-favicon" href="https://originx-23.github.io/images/favicon.ico">
+    <meta name="theme-color" content="#1e2327">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-456-789', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</head>
+
+<body class="env-production emoji-size-boost page-responsive page-profile">
+  <div class="position-relative js-header-wrapper ">
+    <span class="Progress progress-pjax-loader position-fixed width-full js-pjax-loader-bar">
+        <span class="progress-pjax-loader-bar top-0 left-0" style="width: 0%;"></span>
+    </span>
+    <header class="Header js-details-container Details flex-wrap flex-lg-nowrap p-responsive" role="banner">
+        <div class="Header-item d-none d-lg-flex">
+            <a class="Header-link" href="https://originx-23.github.io/" aria-label="Homepage"
+                data-ga-click="Header, go to dashboard, icon:logo">
+                <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1"
+                    width="32" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                </svg>
+            </a>
+        </div>
+        <div
+            class="Header-item Header-item--full flex-column flex-lg-row width-full flex-order-2 flex-lg-order-none mr-0 mr-lg-3 mt-3 mt-lg-0 Details-content--hidden">
+            <div class="header-search flex-self-stretch flex-lg-self-auto mr-0 mr-lg-3 mb-3 mb-lg-0 scoped-search site-scoped-search js-site-search position-relative js-jump-to"
+                role="combobox" aria-owns="jump-to-results" aria-label="Search or jump to" aria-haspopup="listbox"
+                aria-expanded="false">
+                <div class="position-relative">
+                </div>
+            </div>
+        </div>
+        <div class="Header-item Header-item--full flex-justify-center d-lg-none position-relative" style="margin-right: auto;">
+            <a class="Header-link" href="https://originx-23.github.io/" aria-label="Homepage"
+                data-ga-click="Header, go to dashboard, icon:logo">
+                <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1"
+                    width="32" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                </svg>
+            </a>
+        </div>
+        <div class="Header-item position-relative mr-0 d-none d-lg-flex">
+            <details class="details-overlay details-reset">
+                <summary class="Header-link" aria-label="View profile and more"
+                    data-ga-click="Header, show menu, icon:avatar">
+                    
+                    <img alt="" class="avatar" src="https://avatars2.githubusercontent.com/u/42173584?s=460&amp;u=ee531db1fe190db6c48a434bb8bf1f506a6c293f&amp;v=4" height="20" width="20">
+                    
+                </summary>
+            </details>
+        </div>
+    </header>
+</div>
+
+<div id="start-of-content" class="show-on-focus"></div>
+<div id="js-flash-container">
+</div>
+
+  
+<div class="application-main " data-commit-hovercards-enabled="">
+    <div itemscope="" itemtype="http://schema.org/SoftwareSourceCode" class="">
+        <main id="js-repo-pjax-container" data-pjax-container="">
+            <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav pt-0 pt-lg-4 ">
+                <div class="repohead-details-container clearfix container-lg p-responsive d-none d-lg-block">
+                    <div class="mb-3 d-flex">
+                        <h1 class="public css-truncate float-none flex-auto width-fit pl-0">
+                            <a class="avatar mr-1" href="https://originx-23.github.io/about/">
+                            
+
+                                <img
+                                    src="https://avatars2.githubusercontent.com/u/42173584?s=460&amp;u=ee531db1fe190db6c48a434bb8bf1f506a6c293f&amp;v=4" width="26" height="26">
+                            
+                            </a>
+                            <span class="author"><a
+                                    href="https://originx-23.github.io/">xover</a></span>
+                            <span class="path-divider">/</span>
+                            <strong itemprop="name" class="css-truncate-target" style="max-width: 410px"><a
+                                    href="https://originx-23.github.io/post/openstack-attach-volume-flow/">Openstack Attach Volume Flow</a></strong>
+
+                            <div class="d-block text-small text-gray">
+                                Created <time-ago datetime="2020-03-19" class="no-wrap"
+                                    title="Created at 2020/03/19">
+                                    2020-03-19</time-ago>
+                                <span class="file-info-divider"></span>
+                                Modifyed <time-ago datetime="2020-03-19" class="no-wrap"
+                                    title="Modified  at 2020/03/19">
+                                    2020-03-19</time-ago>
+                            </div>
+                        </h1>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div class="container-lg clearfix new-discussion-timeline experiment-repo-nav  p-responsive">
+                <div class="repository-content ">
+                    <div class="Box mt-3 position-relative">
+                        <div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center">
+                            <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                                4070 Words
+                                
+                            </div>
+                        </div>
+
+                        <div id="readme" class="Box-body readme blob instapaper_body js-code-block-container">
+                            <article class="markdown-body entry-content p-3 p-md-6" itemprop="text"><h1 id="openstack-attach-volume-flow">Openstack attach volume flow</h1>
+<h2 id="nova">Nova服务</h2>
+<p>Nova组件为OpenStack提供计算服务(Compute as Service)，类似AWS的EC2服务。Nova管理的主要对象为云主机（server)，用户可通过Nova API申请云主机(server)资源。云主机通常对应一个虚拟机，但不是绝对，也有可能是一个容器(docker driver)或者裸机(对接ironic driver)。</p>
+<h2 id="cinder">Cinder服务</h2>
+<p>Cinder组件为OpenStack提供块存储服务(Block Storage as Service)，类似AWS的EBS服务。Cinder管理的主要对象为数据卷(volume)，用户通过Cinder API可以对volume执行创建、删除、扩容、快照、备份等操作。</p>
+<p>Cinder目前最典型的应用场景就是为Nova云主机提供云硬盘功能，用户可以把一个volume卷挂载到Nova的云主机中，当作云主机的一个虚拟块设备使用。</p>
+<p>Cinder除了能够为Nova云主机提供云硬盘功能，还能为裸机、容器等提供数据卷功能。</p>
+<h2 id="heading">如何挂载块设备到虚拟机</h2>
+<p>iSCSI设备需要先把lun设备映射到宿主机本地，然后当做本地设备挂载即可。 会创建一个xml文件，例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;disk</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;block&#39;</span> <span style="color:#a6e22e">device=</span><span style="color:#e6db74">&#39;disk&#39;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;driver</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#39;qemu&#39;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;raw&#39;</span> <span style="color:#a6e22e">cache=</span><span style="color:#e6db74">&#39;none&#39;</span> <span style="color:#a6e22e">io=</span><span style="color:#e6db74">&#39;native&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;source</span> <span style="color:#a6e22e">dev=</span><span style="color:#e6db74">&#39;/dev/disk/by-path/ip-10.0.0.2:3260-iscsi-iqn.2010-10.org.openstack:volume-2ed1b04c-b34f-437d-9aa3-3feeb683d063-lun-0&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;target</span> <span style="color:#a6e22e">dev=</span><span style="color:#e6db74">&#39;vdb&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;virtio&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;serial</span><span style="color:#f92672">&gt;</span>2ed1b04c-b34f-437d-9aa3-3feeb683d063<span style="color:#f92672">&lt;/serial&gt;</span>
+      <span style="color:#f92672">&lt;address</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;pci&#39;</span> <span style="color:#a6e22e">domain=</span><span style="color:#e6db74">&#39;0x0000&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;0x00&#39;</span> <span style="color:#a6e22e">slot=</span><span style="color:#e6db74">&#39;0x06&#39;</span> <span style="color:#a6e22e">function=</span><span style="color:#e6db74">&#39;0x0&#39;</span><span style="color:#f92672">/&gt;</span>
+<span style="color:#f92672">&lt;/disk&gt;</span>
+</code></pre></div><p>其中 <code>source</code>就是lun设备映射到本地的路径。</p>
+<p>如果是分布式存储，以Ceph rbd为例，可以直接挂载rbd <code>image</code>（宿主机需要包含rbd内核模块），通过rbd协议访问image，而不需要先<code>map</code>到宿主机本地，一个demo xml文件为:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#f92672">&lt;disk</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;network&#39;</span> <span style="color:#a6e22e">device=</span><span style="color:#e6db74">&#39;disk&#39;</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;driver</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#39;qemu&#39;</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;raw&#39;</span> <span style="color:#a6e22e">cache=</span><span style="color:#e6db74">&#39;writeback&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;auth</span> <span style="color:#a6e22e">username=</span><span style="color:#e6db74">&#39;admin&#39;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;secret</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;ceph&#39;</span> <span style="color:#a6e22e">uuid=</span><span style="color:#e6db74">&#39;bdf77f5d-bf0b-1053-5f56-cd76b32520dc&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;/auth&gt;</span>
+      <span style="color:#f92672">&lt;source</span> <span style="color:#a6e22e">protocol=</span><span style="color:#e6db74">&#39;rbd&#39;</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#39;nova-pool/962b8560-95c3-4d2d-a77d-e91c44536759_disk&#39;</span><span style="color:#f92672">&gt;</span>
+        <span style="color:#f92672">&lt;host</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#39;10.0.0.2&#39;</span> <span style="color:#a6e22e">port=</span><span style="color:#e6db74">&#39;6789&#39;</span><span style="color:#f92672">/&gt;</span>
+        <span style="color:#f92672">&lt;host</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#39;10.0.0.3&#39;</span> <span style="color:#a6e22e">port=</span><span style="color:#e6db74">&#39;6789&#39;</span><span style="color:#f92672">/&gt;</span>
+        <span style="color:#f92672">&lt;host</span> <span style="color:#a6e22e">name=</span><span style="color:#e6db74">&#39;10.0.0.4&#39;</span> <span style="color:#a6e22e">port=</span><span style="color:#e6db74">&#39;6789&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;/source&gt;</span>
+      <span style="color:#f92672">&lt;target</span> <span style="color:#a6e22e">dev=</span><span style="color:#e6db74">&#39;vda&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;virtio&#39;</span><span style="color:#f92672">/&gt;</span>
+      <span style="color:#f92672">&lt;address</span> <span style="color:#a6e22e">type=</span><span style="color:#e6db74">&#39;pci&#39;</span> <span style="color:#a6e22e">domain=</span><span style="color:#e6db74">&#39;0x0000&#39;</span> <span style="color:#a6e22e">bus=</span><span style="color:#e6db74">&#39;0x00&#39;</span> <span style="color:#a6e22e">slot=</span><span style="color:#e6db74">&#39;0x05&#39;</span> <span style="color:#a6e22e">function=</span><span style="color:#e6db74">&#39;0x0&#39;</span><span style="color:#f92672">/&gt;</span>
+<span style="color:#f92672">&lt;/disk&gt;</span>
+</code></pre></div><p>Cinder如果使用Cinder macrosan driver，需要先把LV加到iSCSI target中，然后映射到计算节点的宿主机，而如果使用rbd driver，不需要映射到计算节点，直接挂载即可。</p>
+<p>接下来介绍OpenStack如何将volume挂载到虚拟机中，分析Nova和Cinder之间的两种挂载方式。</p>
+<h2 id="iscsi">iscsi方式挂载</h2>
+<h3 id="heading-1">跨设备存储的架构</h3>
+<h4 id="iscsi-1">什么是iSCSI</h4>
+<p>iSCSI server端称为<code>Target</code>，client端称为<code>Initiator</code>，一台服务器可以同时运行多个Target，一个Target可以认为是一个物理存储池，它可以包含多个<code>backstores</code>，backstore就是实际要共享出去的设备，实际应用主要有两种类型：</p>
+<ul>
+<li>block。即一个块设备，可以是本地的一个硬盘，如<code>/dev/sda</code>，也可以是一个<code>LVM</code>(LogicalVolumeManager)卷。</li>
+<li>fileio。把本地的一个文件当作一个块设备，如一个raw格式的虚拟硬盘。</li>
+</ul>
+<p>backstore需要添加到指定的target中，target会把这些物理设备映射成逻辑设备，并分配一个id，称为LUN(逻辑单元号)。</p>
+<h4 id="heading-2">架构示意图</h4>
+<p>![1571107234685](E:\文档\生产PPT\Openstack attach volume flow.assets\1571107234685.png)</p>
+<h3 id="heading-3">挂载流程</h3>
+<h4 id="1-">1. 基本流程</h4>
+<p>![volume attach](E:\文档\生产PPT\Openstack attach volume flow.assets\5a1fda3a-e17b-11e5-98be-2bca8a26e0bb.png)</p>
+<p>当Nova volume-attach server volume执行后，主要经过以下几步：
+a. Nova Client解析指令，通过RESTful接口访问nova-api；
+b. Nova API解析响应请求获取虚拟机的基本信息，然后向cinder-api发出请求保留，并向nova-compute发送RPC异步调用请求卷挂载；
+c. Nova-compute向cinder-api初始化信息，并根据初始化连接调用Libvirt的接口完成挂卷流程；
+d. 进而调用cinder-volume获取连接，获取了连接后，通过RESTFUL请求cinder-api进行数据库更新操作。</p>
+<h4 id="2">2.源码分析</h4>
+<h5 id="1--1">1. 源码函数</h5>
+<p>在Nova Client进程中，由VolumeAttachmentController接受挂载请求</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova client
+    <span style="color:#960050;background-color:#1e0010">↓</span>
+POST <span style="color:#f92672">/</span>v2<span style="color:#f92672">.</span><span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>servers<span style="color:#f92672">/</span>c2486c45<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>a8f<span style="color:#f92672">-</span><span style="color:#ae81ff">4028</span><span style="color:#f92672">-</span><span style="color:#ae81ff">8</span>cd1<span style="color:#f92672">-</span><span style="color:#ae81ff">51</span>c0425f677a<span style="color:#f92672">/</span>os<span style="color:#f92672">-</span>volume_attachments
+    <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>api<span style="color:#f92672">.</span>openstack<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>volumes<span style="color:#f92672">.</span>VolumeAttachmentController<span style="color:#f92672">.</span>create
+    self<span style="color:#f92672">.</span>compute_api<span style="color:#f92672">.</span>attach_volume
+        self<span style="color:#f92672">.</span>compute_api <span style="color:#960050;background-color:#1e0010">可</span><span style="color:#960050;background-color:#1e0010">用</span><span style="color:#960050;background-color:#1e0010">的</span><span style="color:#960050;background-color:#1e0010">有</span><span style="color:#960050;background-color:#1e0010">两</span><span style="color:#960050;background-color:#1e0010">个</span><span style="color:#960050;background-color:#1e0010">：</span>
+            <span style="color:#ae81ff">1.</span> nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>cells_api<span style="color:#f92672">.</span>ComputeCellsAPI
+            <span style="color:#ae81ff">2.</span> nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>api<span style="color:#f92672">.</span>API
+</code></pre></div><p>根据 nova.conf 配置项决定使用哪一个，默认情况下是 nova.compute.api.API</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>api<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>attach_volume
+    self<span style="color:#f92672">.</span>_attach_volume
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>api<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>_attach_volume
+    step1: volume_bdm <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>compute_rpcapi<span style="color:#f92672">.</span>reserve_block_device_name
+    step2: volume <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>volume_api<span style="color:#f92672">.</span>get(context, volume_id)
+    step3: self<span style="color:#f92672">.</span>volume_api<span style="color:#f92672">.</span>check_attach(context, volume, instance<span style="color:#f92672">=</span>instance)
+    step4: self<span style="color:#f92672">.</span>volume_api<span style="color:#f92672">.</span>reserve_volume(context, volume_id)
+    step5: self<span style="color:#f92672">.</span>compute_rpcapi<span style="color:#f92672">.</span>attach_volume(context, instance<span style="color:#f92672">=</span>instance,
+                    volume_id<span style="color:#f92672">=</span>volume_id, mountpoint<span style="color:#f92672">=</span>device, bdm<span style="color:#f92672">=</span>volume_bdm)    
+</code></pre></div><p><strong>step 1</strong>: 创建 BDM 数据库表数据</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>api<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>_attach_volume
+    volume_bdm <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>compute_rpcapi<span style="color:#f92672">.</span>reserve_block_device_name
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>rpcapi<span style="color:#f92672">.</span>ComputeApi<span style="color:#f92672">.</span>reserve_block_device_name
+    volume_bdm <span style="color:#f92672">=</span> cctxt<span style="color:#f92672">.</span>call(ctxt, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">reserve_block_device_name</span><span style="color:#e6db74">&#39;</span>, <span style="color:#f92672">*</span><span style="color:#f92672">*</span>kw)
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>manager<span style="color:#f92672">.</span>reserve_block_device_name
+    bdm <span style="color:#f92672">=</span> objects<span style="color:#f92672">.</span>BlockDeviceMapping(<span style="color:#f92672">.</span><span style="color:#f92672">.</span><span style="color:#f92672">.</span>)
+    bdm<span style="color:#f92672">.</span>create() <span style="color:#75715e"># 创建 BDM 数据库表数据  </span>
+</code></pre></div><p>即在<code>block_device_mapping</code>表中创建对应的记录，由于API节点无法拿到目标虚拟机挂载后的设备名，比如<code>/dev/vdb</code>，只有计算节点才知道自己虚拟机映射到哪个设备。因此bdm不是在API节点创建的，而是通过RPC请求到虚拟机所在的计算节点创建，请求方法为<code>reserve_block_device_name</code>，该方法首先调用libvirt分配一个设备名，比如<code>/dev/vdb</code>，然后创建对应的bdm实例。</p>
+<p><strong>step 2</strong>: 调用 cinderclient 获取需要挂载的 volume 信息</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>api<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>_attach_volume
+    volume <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>volume_api<span style="color:#f92672">.</span>get(context, volume_id)
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>volume<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>get
+    item <span style="color:#f92672">=</span> cinderclient(context)<span style="color:#f92672">.</span>volumes<span style="color:#f92672">.</span>get(volume_id)
+</code></pre></div><p><strong>step 3</strong>: 检查cinder status和可用域</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>api<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>_attach_volume
+    self<span style="color:#f92672">.</span>volume_api<span style="color:#f92672">.</span>check_attach(context, volume, instance<span style="color:#f92672">=</span>instance)
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>volume<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>check_attach
+    <span style="color:#66d9ef">if</span> (volume[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">status</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> (<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">available</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">in-use</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">attaching</span><span style="color:#e6db74">&#39;</span>))
+    <span style="color:#66d9ef">if</span> instance_az <span style="color:#f92672">!=</span> volume[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">availability_zone</span><span style="color:#e6db74">&#39;</span>]
+</code></pre></div><p><code>check_attach</code>就是检查这个volume能不能挂载，比如status必须为<code>avaliable</code>，或者支持多挂载情况下状态为<code>in-use</code>或者<code>avaliable</code>。</p>
+<p><strong>step 4</strong>: 调用 cinderclient 更新 cinder DB -&gt; &lsquo;status&rsquo;: &lsquo;attaching&rsquo;（以防止其他操作进入）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>api<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>_attach_volume
+    self<span style="color:#f92672">.</span>volume_api<span style="color:#f92672">.</span>reserve_volume(context, volume_id)
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>volume<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>reserve_volume
+     cinderclient(context)<span style="color:#f92672">.</span>volumes<span style="color:#f92672">.</span>reserve(volume_id)
+</code></pre></div><p><code>reserve_volume</code>是由Cinder完成的，nova-api会调用cinder API。该方法其实不做什么工作，仅仅是把volume的status置为<code>attaching</code>。</p>
+<p><strong>step 5</strong>: 挂载卷</p>
+<p>此时nova-api会向目标计算节点发起RPC请求，由于<code>rpcapi.py</code>的<code>attach_volume</code>方法调用的是<code>cast</code>方法，因此该RPC是异步调用。由此，nova-api的工作结束，剩下的工作由虚拟机所在的计算节点完成。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>api<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>_attach_volume
+    self<span style="color:#f92672">.</span>compute_rpcapi<span style="color:#f92672">.</span>attach_volume(context, instance<span style="color:#f92672">=</span>instance,
+                    volume_id<span style="color:#f92672">=</span>volume_id, mountpoint<span style="color:#f92672">=</span>device, bdm<span style="color:#f92672">=</span>volume_bdm)  
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>rpcapi<span style="color:#f92672">.</span>ComputeAPI<span style="color:#f92672">.</span>attach_volume
+     cctxt <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>client<span style="color:#f92672">.</span>prepare(server<span style="color:#f92672">=</span>_compute_host(None, instance),
+                version<span style="color:#f92672">=</span>version)
+     cctxt<span style="color:#f92672">.</span>cast(ctxt, <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">attach_volume</span><span style="color:#e6db74">&#39;</span>, <span style="color:#f92672">*</span><span style="color:#f92672">*</span>kw)
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>manager<span style="color:#f92672">.</span>ComputeManager<span style="color:#f92672">.</span>attach_volume
+     step6: driver_bdm <span style="color:#f92672">=</span> driver_block_device<span style="color:#f92672">.</span>convert_volume(bdm) 
+     step7: self<span style="color:#f92672">.</span>_attach_volume(context, instance, driver_bdm)  
+</code></pre></div><p><strong>step 6</strong>: 根据 source_type 获取 BDM 驱动 DriverVolumeBlockDevice</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>manager<span style="color:#f92672">.</span>ComputeManager<span style="color:#f92672">.</span>attach_volume
+     driver_bdm <span style="color:#f92672">=</span> driver_block_device<span style="color:#f92672">.</span>convert_volume(bdm) 
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>virt<span style="color:#f92672">.</span>block_device<span style="color:#f92672">.</span>convert_volume
+     source_volume <span style="color:#f92672">=</span> convert_volumes(volume_bdms)
+     convert_volumes <span style="color:#f92672">=</span> functools<span style="color:#f92672">.</span>partial(_convert_block_devices,
+                                   DriverVolumeBlockDevice)
+</code></pre></div><p><strong>step 7</strong>: BDM driver attach</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>manager<span style="color:#f92672">.</span>ComputeManager<span style="color:#f92672">.</span>attach_volume
+     self<span style="color:#f92672">.</span>_attach_volume(context, instance, driver_bdm)
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>compute<span style="color:#f92672">.</span>manager<span style="color:#f92672">.</span>ComputeManager<span style="color:#f92672">.</span>_attach_volume  
+     bdm<span style="color:#f92672">.</span>attach(context, instance, self<span style="color:#f92672">.</span>volume_api, self<span style="color:#f92672">.</span>driver,
+                       do_check_attach<span style="color:#f92672">=</span>False, do_driver_attach<span style="color:#f92672">=</span>True)
+        <span style="color:#960050;background-color:#1e0010">↓</span>           
+nova<span style="color:#f92672">.</span>virt<span style="color:#f92672">.</span>block_device<span style="color:#f92672">.</span>DriverVolumeBlockDevice<span style="color:#f92672">.</span>attach
+     volume_api<span style="color:#f92672">.</span>check_attach(context, volume, instance<span style="color:#f92672">=</span>instance) <span style="color:#75715e"># 检查cinder status和可用域</span>
+     step8:  connector <span style="color:#f92672">=</span> virt_driver<span style="color:#f92672">.</span>get_volume_connector(instance)
+     step9:  connection_info <span style="color:#f92672">=</span> volume_api<span style="color:#f92672">.</span>initialize_connection(context,volume_id,connector)
+     step10: virt_driver<span style="color:#f92672">.</span>attach_volume()  
+</code></pre></div><p><strong>step 8</strong>: 获取 connector，为 initialize_connection 提供参数</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>virt<span style="color:#f92672">.</span>block_device<span style="color:#f92672">.</span>DriverVolumeBlockDevice<span style="color:#f92672">.</span>attach
+     connector <span style="color:#f92672">=</span> virt_driver<span style="color:#f92672">.</span>get_volume_connector(instance)
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>virt<span style="color:#f92672">.</span>libvirt<span style="color:#f92672">.</span>driver<span style="color:#f92672">.</span>LibvirtDriver<span style="color:#f92672">.</span>get_volume_connector
+     self<span style="color:#f92672">.</span>_initiator <span style="color:#f92672">=</span> libvirt_utils<span style="color:#f92672">.</span>get_iscsi_initiator()
+     self<span style="color:#f92672">.</span>_fc_wwnns <span style="color:#f92672">=</span> libvirt_utils<span style="color:#f92672">.</span>get_fc_wwnns()
+     self<span style="color:#f92672">.</span>_fc_wwpns <span style="color:#f92672">=</span> libvirt_utils<span style="color:#f92672">.</span>get_fc_wwpns()
+     <span style="color:#66d9ef">return</span> connector
+</code></pre></div><p><code>get_volume_connector() </code>就是调用os-brick的<code>get_connector_properties</code>， os-brick是从Cinder项目分离出来的，专门用于管理各种存储系统卷的库，代码仓库为<a href="https://github.com/openstack/os-brick">os-brick</a>。其中<code>get_connector_properties</code>方法位于<code>os_brick/initiator/connector.py</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_connector_properties</span>(root_helper, my_ip, multipath, enforce_multipath,
+                             host<span style="color:#f92672">=</span>None):
+    iscsi <span style="color:#f92672">=</span> ISCSIConnector(root_helper<span style="color:#f92672">=</span>root_helper)
+    fc <span style="color:#f92672">=</span> linuxfc<span style="color:#f92672">.</span>LinuxFibreChannel(root_helper<span style="color:#f92672">=</span>root_helper)
+
+    props <span style="color:#f92672">=</span> {}
+    props[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">ip</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> my_ip
+    props[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">host</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> host <span style="color:#66d9ef">if</span> host <span style="color:#66d9ef">else</span> socket<span style="color:#f92672">.</span>gethostname()
+    initiator <span style="color:#f92672">=</span> iscsi<span style="color:#f92672">.</span>get_initiator()
+    <span style="color:#66d9ef">if</span> initiator:
+        props[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">initiator</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> initiator
+    wwpns <span style="color:#f92672">=</span> fc<span style="color:#f92672">.</span>get_fc_wwpns()
+    <span style="color:#66d9ef">if</span> wwpns:
+        props[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wwpns</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> wwpns
+    wwnns <span style="color:#f92672">=</span> fc<span style="color:#f92672">.</span>get_fc_wwnns()
+    <span style="color:#66d9ef">if</span> wwnns:
+        props[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">wwnns</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> wwnns
+    props[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">multipath</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> (multipath <span style="color:#f92672">and</span>
+                          _check_multipathd_running(root_helper,
+                                                    enforce_multipath))
+    props[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">platform</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> platform<span style="color:#f92672">.</span>machine()
+    props[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">os_type</span><span style="color:#e6db74">&#39;</span>] <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>platform
+    <span style="color:#66d9ef">return</span> props
+</code></pre></div><p>该方法最重要的工作就是返回该计算节点的信息（如ip、操作系统类型等)以及<code>initiator name</code> 。</p>
+<p><strong>step 9</strong>: 存储端进行挂载返回 connection_info</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>virt<span style="color:#f92672">.</span>block_device<span style="color:#f92672">.</span>DriverVolumeBlockDevice<span style="color:#f92672">.</span>attach
+     connection_info <span style="color:#f92672">=</span> volume_api<span style="color:#f92672">.</span>initialize_connection(context,volume_id,connector)
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>volume<span style="color:#f92672">.</span>cinder<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>initialize_connection
+     <span style="color:#66d9ef">return</span> cinderclient(context)<span style="color:#f92672">.</span>volumes<span style="color:#f92672">.</span>initialize_connection(volume_id,
+                                                                   connector)
+</code></pre></div><p>会调用Cinder API的<code>initialize_connection</code>方法，该方法又会RPC请求给volume所在的<code>cinder-volume</code>服务节点。  该方法的重要工作就是调用<code>cinder-rtstool</code>的<code>add-initiator</code>子命令，即把计算节点的initiator增加到刚刚创建的target acls中。</p>
+<p>因此Cinder的主要工作就是创建volume的iSCSI target以及acls。cinder-volume工作结束，我们返回到nova-compute。</p>
+<p><strong>step 10</strong>: 主机端根据 connection_info 挂载卷到目标主机（iSCSI 为例）</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>virt<span style="color:#f92672">.</span>block_device<span style="color:#f92672">.</span>DriverVolumeBlockDevice<span style="color:#f92672">.</span>attach
+     virt_driver<span style="color:#f92672">.</span>attach_volume() 
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>virt<span style="color:#f92672">.</span>libvirt<span style="color:#f92672">.</span>driver<span style="color:#f92672">.</span>LibvirtDriver<span style="color:#f92672">.</span>attach_volume
+     self<span style="color:#f92672">.</span>_connect_volume(connection_info, disk_info)
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>virt<span style="color:#f92672">.</span>libvirt<span style="color:#f92672">.</span>volume<span style="color:#f92672">.</span>iscsi<span style="color:#f92672">.</span>LibvirtISCSIVolumeDriver<span style="color:#f92672">.</span>connect_volume
+     <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>use_multipath:
+        run_iscsiadm_update_discoverydb()
+        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_run_iscsiadm_bare()
+        self<span style="color:#f92672">.</span>_connect_to_iscsi_portal(props)
+        self<span style="color:#f92672">.</span>_rescan_iscsi()
+     <span style="color:#66d9ef">else</span>:
+        self<span style="color:#f92672">.</span>_connect_to_iscsi_portal(iscsi_properties)
+        self<span style="color:#f92672">.</span>_run_iscsiadm(iscsi_properties, (<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">--rescan</span><span style="color:#e6db74">&#34;</span>,))
+     host_device <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_get_host_device(iscsi_properties)
+</code></pre></div><p>在单路径的调用中会执行login、检查session、设置自启动等操作，如果一次未连接成功则还会每tries（2秒）重复调用，直到达到调用的限制。其中牵扯到的指令有：
+a. 尝试连接</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">iscsiadm -m node -T target_iqn -p target_protal
+</code></pre></div><p>b. 连接失败重新建立连接</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">iscsiadm -m node -T target_iqn -p target_protal -op new
+iscsiadm -m node -T target_iqn -p target_protal —op update -n node.session.auth.authmethod -v auth_method
+iscsiadm -m node -T target_iqn -p target_protal —op update -n node.session.auth.username -v auth_username
+iscsiadm -m node -T target_iqn -p target_protal —op update -n node.session.auth.password -v auth_password
+</code></pre></div><p>c. 检查session，登陆</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">iscsiadm -m session检查是否登录成功
+iscsiadm –m node –T targetname –p ip —login 登陆建立session
+</code></pre></div><p>d. 设置为随机器启动而启动</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">iscsiadm -m node -T target_iqn -p target_protal —op update -n node.startup -v automatic
+iscsiadm -m node -T target_iqn -p target_protal –rescan
+</code></pre></div><p><strong>step 11</strong>: 更新 cinder DB 数据</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>virt<span style="color:#f92672">.</span>block_device<span style="color:#f92672">.</span>DriverVolumeBlockDevice<span style="color:#f92672">.</span>attach
+     volume_api<span style="color:#f92672">.</span>attach(context, volume_id, instance<span style="color:#f92672">.</span>uuid,
+                       self[<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">mount_device</span><span style="color:#e6db74">&#39;</span>], mode<span style="color:#f92672">=</span>mode)
+        <span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>volume<span style="color:#f92672">.</span>API<span style="color:#f92672">.</span>attach()
+     cinderclient(context)<span style="color:#f92672">.</span>volumes<span style="color:#f92672">.</span>attach(volume_id, instance_uuid,
+                                          mountpoint, mode<span style="color:#f92672">=</span>mode)
+</code></pre></div><p>最后调用了<code>volume_api.attach()</code>方法，该方法向Cinder发起API请求。此时cinder-api通过RPC请求到<code>cinder-volume</code>，代码位于<code>cinder/volume/manager.py</code>，该方法没有做什么工作，其实就是更新数据库，把volume状态改为<code>in-use</code>，并创建对应的<code>attach</code>记录。</p>
+<h5 id="2-">2. 流程图</h5>
+<p>![img](E:\文档\生产PPT\Openstack attach volume flow.assets\clipboard.png)</p>
+<h2 id="ceph-rbd">分布式存储架构的执行流程(以Ceph-RBD为例)</h2>
+<h3 id="heading-4">分布式存储的架构</h3>
+<p>Nova与实例还有存储都运行在同一个设备上，不需要像iSCSI那样创建target、创建portal</p>
+<p>![1570862669571](E:\文档\生产PPT\Openstack attach volume flow.assets\1570862669571.png)</p>
+<p>如Ceph rbd</p>
+<p>![img](E:\文档\生产PPT\Openstack attach volume flow.assets\952555-20170303101714329-1614216142-1571038953729.png)</p>
+<p>通过 libvirt 可以把 Ceph 块设备用于 OpenStack ，它配置了 QEMU 到 librbd 的接口。 Ceph 把块设备映像条带化为对象并分布到集群中，这意味着大容量的 Ceph 块设备映像其性能会比独立服务器更好。</p>
+<h3 id="heading-5">挂载流程</h3>
+<p>因为不需要像iSCSI那样创建target、创建portal，因此rbd driver的<code>create_export()</code>方法为空:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">create_export</span>(self, context, volume, connector):
+    <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;&#34;&#34;</span><span style="color:#e6db74">Exports the volume.</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">pass</span>
+</code></pre></div><p><code>initialize_connection()</code>方法也很简单，直接返回image信息，如pool、image name、mon地址以及配置信息等。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">initialize_connection</span>(self, volume, connector):
+    hosts, ports <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_get_mon_addrs()
+    data <span style="color:#f92672">=</span> {
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">driver_volume_type</span><span style="color:#e6db74">&#39;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">rbd</span><span style="color:#e6db74">&#39;</span>,
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">data</span><span style="color:#e6db74">&#39;</span>: {
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">name</span><span style="color:#e6db74">&#39;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">/</span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> (self<span style="color:#f92672">.</span>configuration<span style="color:#f92672">.</span>rbd_pool,
+                               volume<span style="color:#f92672">.</span>name),
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">hosts</span><span style="color:#e6db74">&#39;</span>: hosts,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">ports</span><span style="color:#e6db74">&#39;</span>: ports,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">auth_enabled</span><span style="color:#e6db74">&#39;</span>: (self<span style="color:#f92672">.</span>configuration<span style="color:#f92672">.</span>rbd_user <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None),
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">auth_username</span><span style="color:#e6db74">&#39;</span>: self<span style="color:#f92672">.</span>configuration<span style="color:#f92672">.</span>rbd_user,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">secret_type</span><span style="color:#e6db74">&#39;</span>: <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">ceph</span><span style="color:#e6db74">&#39;</span>,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">secret_uuid</span><span style="color:#e6db74">&#39;</span>: self<span style="color:#f92672">.</span>configuration<span style="color:#f92672">.</span>rbd_secret_uuid,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">volume_id</span><span style="color:#e6db74">&#39;</span>: volume<span style="color:#f92672">.</span>id,
+            <span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">rbd_ceph_conf</span><span style="color:#e6db74">&#39;</span>: self<span style="color:#f92672">.</span>configuration<span style="color:#f92672">.</span>rbd_ceph_conf,
+        }
+    }
+    LOG<span style="color:#f92672">.</span>debug(<span style="color:#e6db74"></span><span style="color:#e6db74">&#39;</span><span style="color:#e6db74">connection data: </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span>, data)
+    <span style="color:#66d9ef">return</span> data
+</code></pre></div><p>rbd不需要映射虚拟设备到宿主机，因此<code>connect_volume</code>方法也是为空。</p>
+<p>剩下的工作其实就是nova-compute节点libvirt调用<code>get_config()</code>方法获取ceph的mon地址、rbd image信息、认证信息等，并转为成xml格式，最后调用<code>guest.attach_device()</code>即完成了volume的挂载。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">nova<span style="color:#f92672">.</span>virt<span style="color:#f92672">.</span>libvirt<span style="color:#f92672">.</span>driver<span style="color:#f92672">.</span>LibvirtDriver<span style="color:#f92672">.</span>attach_interface
+	cfg <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>vif_driver<span style="color:#f92672">.</span>get_config(instance, vif, image_meta,
+                                     instance<span style="color:#f92672">.</span>flavor,
+                                     CONF<span style="color:#f92672">.</span>libvirt<span style="color:#f92672">.</span>virt_type,
+                                     self<span style="color:#f92672">.</span>_host)
+ 	<span style="color:#960050;background-color:#1e0010">↓</span>
+nova<span style="color:#f92672">.</span>virt<span style="color:#f92672">.</span>libvirt<span style="color:#f92672">.</span>driver<span style="color:#f92672">.</span>LibvirtDriver<span style="color:#f92672">.</span>attach_volume
+	guest<span style="color:#f92672">.</span>attach_device(conf, persistent<span style="color:#f92672">=</span>True, live<span style="color:#f92672">=</span>live):
+    	flags <span style="color:#f92672">=</span> persistent <span style="color:#f92672">and</span> libvirt<span style="color:#f92672">.</span>VIR_DOMAIN_AFFECT_CONFIG <span style="color:#f92672">or</span> <span style="color:#ae81ff">0</span>
+        flags <span style="color:#f92672">|</span><span style="color:#f92672">=</span> live <span style="color:#f92672">and</span> libvirt<span style="color:#f92672">.</span>VIR_DOMAIN_AFFECT_LIVE <span style="color:#f92672">or</span> <span style="color:#ae81ff">0</span>
+        self<span style="color:#f92672">.</span>_domain<span style="color:#f92672">.</span>attachDeviceFlags(conf<span style="color:#f92672">.</span>to_xml(), flags<span style="color:#f92672">=</span>flags)
+</code></pre></div><p>因此，相对iSCSI，rbd挂载过程简单得多。</p>
+</article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div class="utterances"></div>
+<script src="https://utteranc.es/client.js"
+        repo="originx-23/originx-23.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+  <div class="footer container-lg width-full p-responsive" role="contentinfo">
+    <div
+        class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+        <ul
+            class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+            <li class="mr-3 mr-lg-0">© 2020. Theme by <a href="https://github.com/MeiK2333/github-style"><span>github-style</span></a></a></li>
+        </ul>
+
+        <a aria-label="Homepage" title="Xover" class="footer-octicon d-none d-lg-block mx-lg-4"
+            href="https://originx-23.github.io/">
+            <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24"
+                aria-hidden="true">
+                <path fill-rule="evenodd"
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                </path>
+            </svg>
+        </a>
+        <ul
+            class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+        </ul>
+    </div>
+    <div class="d-flex flex-justify-center pb-6">
+        <span class="f6 text-gray-light"></span>
+    </div>
+</div>
+
+<script crossorigin="anonymous"
+    type="application/javascript" src="https://originx-23.github.io/js/frameworks.js"></script>
+
+<script crossorigin="anonymous" async="async"
+    type="application/javascript" src="https://originx-23.github.io/js/github-bootstrap.js"></script>
+<script>
+    let classs = ['pinned-item-desc', 'text-gray', 'text-small', 'd-block', 'mt-2', 'mb-3'];
+    const pinned_posts = document.getElementsByName('pinned-post');
+    for (let i = 0; i < pinned_posts.length; i++) {
+        for (let j = 0; j < classs.length; j++) {
+            const ps = pinned_posts[i].getElementsByTagName('p');
+            for (let k = 0; k < ps.length; k++) {
+                ps[k].classList.add(classs[j]);
+            }
+        }
+    }
+    classs = [ 'd-inline-block', 'text-gray', 'mb-2', 'pr-4'];
+    const posts_posts = document.getElementsByName('posts-post');
+    for (let i = 0; i < posts_posts.length; i++) {
+        for (let j = 0; j < classs.length; j++) {
+            const ps = posts_posts[i].getElementsByTagName('p');
+            for (let k = 0; k < ps.length; k++) {
+                ps[k].classList.add(classs[j]);
+            }
+        }
+    }
+</script>
+
+</body>
+
+</html>
