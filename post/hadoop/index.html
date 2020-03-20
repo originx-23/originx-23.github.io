@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-ch">
+<head>
+    <meta charset="utf-8">
+    <link crossorigin="anonymous" media="all"
+        rel="stylesheet"
+        href="https://originx-23.github.io/css/frameworks.css" />
+    <link crossorigin="anonymous" media="all"
+        rel="stylesheet" href="https://originx-23.github.io/css/github.css" />
+    <meta name="viewport" content="width=device-width">
+
+    <title>Hadoop详解 - Xover</title>
+
+    <link rel="icon" type="image/x-icon" class="js-site-favicon" href="https://originx-23.github.io/images/favicon.ico">
+    <meta name="theme-color" content="#1e2327">
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-123-456-789', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</head>
+
+<body class="env-production emoji-size-boost page-responsive page-profile">
+  <div class="position-relative js-header-wrapper ">
+    <span class="Progress progress-pjax-loader position-fixed width-full js-pjax-loader-bar">
+        <span class="progress-pjax-loader-bar top-0 left-0" style="width: 0%;"></span>
+    </span>
+    <header class="Header js-details-container Details flex-wrap flex-lg-nowrap p-responsive" role="banner">
+        <div class="Header-item d-none d-lg-flex">
+            <a class="Header-link" href="https://originx-23.github.io/" aria-label="Homepage"
+                data-ga-click="Header, go to dashboard, icon:logo">
+                <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1"
+                    width="32" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                </svg>
+            </a>
+        </div>
+        <div
+            class="Header-item Header-item--full flex-column flex-lg-row width-full flex-order-2 flex-lg-order-none mr-0 mr-lg-3 mt-3 mt-lg-0 Details-content--hidden">
+            <div class="header-search flex-self-stretch flex-lg-self-auto mr-0 mr-lg-3 mb-3 mb-lg-0 scoped-search site-scoped-search js-site-search position-relative js-jump-to"
+                role="combobox" aria-owns="jump-to-results" aria-label="Search or jump to" aria-haspopup="listbox"
+                aria-expanded="false">
+                <div class="position-relative">
+                </div>
+            </div>
+        </div>
+        <div class="Header-item Header-item--full flex-justify-center d-lg-none position-relative" style="margin-right: auto;">
+            <a class="Header-link" href="https://originx-23.github.io/" aria-label="Homepage"
+                data-ga-click="Header, go to dashboard, icon:logo">
+                <svg class="octicon octicon-mark-github v-align-middle" height="32" viewBox="0 0 16 16" version="1.1"
+                    width="32" aria-hidden="true">
+                    <path fill-rule="evenodd"
+                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                </svg>
+            </a>
+        </div>
+        <div class="Header-item position-relative mr-0 d-none d-lg-flex">
+            <details class="details-overlay details-reset">
+                <summary class="Header-link" aria-label="View profile and more"
+                    data-ga-click="Header, show menu, icon:avatar">
+                    
+                    <img alt="" class="avatar" src="https://avatars2.githubusercontent.com/u/42173584?s=460&amp;u=ee531db1fe190db6c48a434bb8bf1f506a6c293f&amp;v=4" height="20" width="20">
+                    
+                </summary>
+            </details>
+        </div>
+    </header>
+</div>
+
+<div id="start-of-content" class="show-on-focus"></div>
+<div id="js-flash-container">
+</div>
+
+  
+<div class="application-main " data-commit-hovercards-enabled="">
+    <div itemscope="" itemtype="http://schema.org/SoftwareSourceCode" class="">
+        <main id="js-repo-pjax-container" data-pjax-container="">
+            <div class="pagehead repohead instapaper_ignore readability-menu experiment-repo-nav pt-0 pt-lg-4 ">
+                <div class="repohead-details-container clearfix container-lg p-responsive d-none d-lg-block">
+                    <div class="mb-3 d-flex">
+                        <h1 class="public css-truncate float-none flex-auto width-fit pl-0">
+                            <a class="avatar mr-1" href="https://originx-23.github.io/about/">
+                            
+
+                                <img
+                                    src="https://avatars2.githubusercontent.com/u/42173584?s=460&amp;u=ee531db1fe190db6c48a434bb8bf1f506a6c293f&amp;v=4" width="26" height="26">
+                            
+                            </a>
+                            <span class="author"><a
+                                    href="https://originx-23.github.io/">xover</a></span>
+                            <span class="path-divider">/</span>
+                            <strong itemprop="name" class="css-truncate-target" style="max-width: 410px"><a
+                                    href="https://originx-23.github.io/post/hadoop/">Hadoop详解</a></strong>
+
+                            <div class="d-block text-small text-gray">
+                                Created <time-ago datetime="2020-03-20" class="no-wrap"
+                                    title="Created at 2020/03/20">
+                                    2020-03-20</time-ago>
+                                <span class="file-info-divider"></span>
+                                Modifyed <time-ago datetime="2020-03-20" class="no-wrap"
+                                    title="Modified  at 2020/03/20">
+                                    2020-03-20</time-ago>
+                            </div>
+                        </h1>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div class="container-lg clearfix new-discussion-timeline experiment-repo-nav  p-responsive">
+                <div class="repository-content ">
+                    <div class="Box mt-3 position-relative">
+                        <div class="Box-header py-2 d-flex flex-column flex-shrink-0 flex-md-row flex-md-items-center">
+                            <div class="text-mono f6 flex-auto pr-3 flex-order-2 flex-md-order-1 mt-2 mt-md-0">
+                                1996 Words
+                                
+                            </div>
+                        </div>
+
+                        <div id="readme" class="Box-body readme blob instapaper_body js-code-block-container">
+                            <article class="markdown-body entry-content p-3 p-md-6" itemprop="text"><h2 id="heading">定义</h2>
+<h3 id="heading-1">狭义</h3>
+<p>HDFS:	分布式文件系统, 解决海量数据存储</p>
+<p>YARN: 	作业调度和集群资源管理框架, 解决资源任务调度</p>
+<p>MAPREDUCE: 分布式运算编程框架, 解决海量数据计算</p>
+<h3 id="heading-2">广义</h3>
+<p>生态圈</p>
+<h2 id="heading-3">发展</h2>
+<p>谷歌的三篇论文:</p>
+<ul>
+<li>谷歌分布式文件系统(GFS)</li>
+<li>谷歌版的MAPREDUCE系统</li>
+<li>bigtable</li>
+</ul>
+<h2 id="heading-4">特性优点</h2>
+<p>扩容能力</p>
+<p>成本低</p>
+<p>高效率</p>
+<p>可靠性</p>
+<h1 id="heading-5">集群搭建</h1>
+<h2 id="-">集群简介(物理上分离, 逻辑上在一起)</h2>
+<p>HDFS: NameNode, DataNode, SecondaryNameNode</p>
+<p>YARN: ResourcManager, NodeManager</p>
+<p>MapReduce: 分布式运算框架, 打包运行在HDFS集群上.</p>
+<h3 id="heading-6">部署方式</h3>
+<p>Standalone mode			独立模式</p>
+<p>Pseudo-Distributed mode	伪分布式</p>
+<p>Cluster mode				集群模式</p>
+<p>前两种都是在单机上部署.</p>
+<h3 id="heading-7">服务器系统设置</h3>
+<h4 id="heading-8">同步时间</h4>
+<pre><code>yum install ntpdate
+ntpdate cn.pool.ntp.org
+</code></pre><h4 id="heading-9">设置主机名</h4>
+<pre><code>vi /etc/sysconfig/network
+NETWORKING=yes
+HOSTNAME=node-1
+</code></pre><h4 id="ip">配置IP,主机名映射</h4>
+<pre><code>vi /etc/hosts
+192.168.33.101	node-1
+192.168.33.102	node-2
+192.168.33.103	node-3
+</code></pre><h4 id="ssh">配置ssh免密登录</h4>
+<pre><code># 生成ssh免登陆密钥
+ssh-keygen -t rsa	(四个回车)
+将生成的id_rsa.pub拷贝到要免密登录的目标机器上
+ssh-copy-id node-02
+</code></pre><h4 id="heading-10">配置防火墙</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 查看防火墙</span>
+service iptables status
+<span style="color:#75715e"># 关闭防火墙</span>
+service iptables stop
+<span style="color:#75715e"># 查看防火墙开机启动状态</span>
+chkconfig iptables --list
+<span style="color:#75715e"># 关闭防火墙开机启动</span>
+chconfig iptables off
+</code></pre></div><h3 id="hdfs">关于HDFS的格式化</h3>
+<p>首次启动需要格式化</p>
+<p>格式化本质是进行一些文件系统的初始化操作,  创建一些需要的文件</p>
+<p>格式化之后, 集群启动之后, 后续不再需要格式化</p>
+<p>格式化操作在HDFS的主角色(namenode)所在机器上操作</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hdfs namenode –format <span style="color:#f92672">(</span>hadoop namenode - format<span style="color:#f92672">)</span>
+</code></pre></div><h1 id="hdfs-1">HDFS基本</h1>
+<h2 id="heading-11">介绍</h2>
+<p>对海量索引文件进行存储</p>
+<h2 id="heading-12">设计目标</h2>
+<p>故障检测和自动快速恢复</p>
+<p>数据访问的高吞吐量</p>
+<p>支持大文件</p>
+<p>write-one-read-many</p>
+<p>移动计算的代价比之移动数据的代价低</p>
+<p>可移植性</p>
+<h2 id="heading-13">重要特性</h2>
+<p>分布式文件系统</p>
+<h3 id="masterslave">master/slave架构</h3>
+<p>NameNode 是HDFS集群主节点, DataNode 是HDFS集群从节点.</p>
+<h3 id="heading-14">分块存储</h3>
+<p>hadoop 2.x   块最小128M</p>
+<h3 id="heading-15">名字空间</h3>
+<p>抽象一个目录树</p>
+<h3 id="namenode">NameNode元数据管理</h3>
+<p>NameNode负责维护整个HDFS文件系统的目录树结构</p>
+<h3 id="datanode">DataNode数据存储</h3>
+<p>存储多个副本, 默认是3( 一共三份)</p>
+<p>定时向NameNode汇报自己持有的block信息</p>
+<h3 id="--1">一次写入, 多次读出</h3>
+<p>不支持文件的修改, 延迟大, 网络开销大</p>
+<h2 id="heading-16">基本操作</h2>
+<h3 id="shell">Shell命令行客户端</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hadoop fs &lt;args&gt;
+<span style="color:#75715e"># &lt;args&gt;: 将路径URI作为参数 scheme://authority/path</span>
+<span style="color:#75715e"># 对于HDFS, scheme是hdfs; 对于本地FS, scheme是file; 如果未指定, 则使用配置中指定的默认方案</span> 
+hdfs def &lt;args&gt;老版本这个也可以
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">-ls -h	<span style="color:#75715e"># 显示文件信息</span>
+-mkdir	<span style="color:#75715e"># 指定路径创建目录</span>
+-put	<span style="color:#75715e"># 上传文件	-p 保留访问和修改时间, 所有权和权限   -f 覆盖目的地(如果已经存在)</span>
+-get	<span style="color:#75715e"># 将文件复制到本地文件系统</span>
+<span style="color:#75715e"># -ignorecrc跳过对下载文件的CRC检验</span>
+-appendToFile	<span style="color:#75715e">#追加到文件末尾</span>
+-chgrp	<span style="color:#75715e">#修改组</span>
+-copyFromLocal	<span style="color:#75715e">#put一样</span>
+-getmerger	<span style="color:#75715e">#合并多个文件</span>
+-setrep	<span style="color:#75715e"># 设置副本系数, 用于递归改变目录下所有文件的副本系数 -w 3 -R 路径</span>
+</code></pre></div><h2 id="heading-17">基本原理</h2>
+<h3 id="namenode-1">NameNode概述</h3>
+<ul>
+<li>HDFS 的核心</li>
+<li>也称为Master</li>
+<li>仅存储元数据: 所有文件的目录树, 并跟踪整个集群中的文件</li>
+<li>并不持久化存储每个文件中各个块在DataNode的位置信息, 每次启动重建</li>
+<li>NameNode所在机器通常配置大量内存条</li>
+</ul>
+<h3 id="datanode-1">DataNode</h3>
+<ul>
+<li>DataNode也成为Slave</li>
+<li>NameNode和DataNode保持通信</li>
+<li>默认3秒发送一次心跳, 6小时汇报一次block</li>
+</ul>
+<h3 id="heading-18">工作机制</h3>
+<p>Secondary NameNode协助NameNode进行元数据的备份</p>
+<p>HDFS内部工作机制对客户端保持透明, 客户端请求访问HDFS都是通过向NameNode申请来进行</p>
+<h4 id="heading-19">写数据</h4>
+<p>默认三份, 本地一份, 同机架一份, 不同机架一份</p>
+<h2 id="heading-20">应用开发</h2>
+<h3 id="heading-21">核心步骤</h3>
+<p>从HDFS提供的api中构造一个HDFS的访问客户端对象, 然后通过该客户端对象操作HDFS上的文件.</p>
+<h3 id="heading-22">搭建开发环境</h3>
+<p>创建Maven工程一些jar包的引入</p>
+<h3 id="java">Java相关操作</h3>
+<p>IOUtils( 输入流, 输出流)</p>
+<h2 id="mapreduce">MapReduce计算模型</h2>
+<h3 id="heading-23">思想</h3>
+<p>分而治之</p>
+<p>Map负责分, 并行计算, 需要任务之间没有依赖关系;  Reduce负责合, 对map阶段的结果进行全局汇总</p>
+<p>局部并行计算, 全局汇总</p>
+<h3 id="heading-24">框架结构</h3>
+<p>一个完整的mapreduce 程序在分布式运行时有三类实例进程:</p>
+<ol>
+<li>MRAppMaster: 负责整个程序的过程调度及状态协调</li>
+<li>MapTask: 负责map阶段的整个数据处理流程</li>
+<li>ReduceTask: 负责Reduce阶段的整个数据处理流程</li>
+</ol>
+<p><img src="E:%5C%E6%96%87%E6%A1%A3%5C%E7%AC%94%E8%AE%B0%5CHadoop.assets%5C1553852410426.png" alt="1553852410426"></p>
+<h3 id="heading-25">编程规范</h3>
+<ol>
+<li>三个部分: Mapper, Reducer, Driver</li>
+</ol>
+<h3 id="heading-26">案例</h3>
+<h4 id="mapper">Mapper编写</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/*
+</span><span style="color:#75715e">JDK自带的类型,在序列化时候效率低下, hadoop 自己封装一套数据类型
+</span><span style="color:#75715e">long---&gt;LongWritable
+</span><span style="color:#75715e">String--&gt; Text
+</span><span style="color:#75715e">Interger--&gt; Intwritable
+</span><span style="color:#75715e">null --&gt; NullWritable
+</span><span style="color:#75715e">*/</span>
+</code></pre></div><h4 id="reducer">Reducer编写</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e">	reduce 接收所有来自map阶段处理的数据之后, 按照key的字典序进行排序
+</span><span style="color:#75715e">	按照key是否相同作为一组去调用reduce 方法
+</span><span style="color:#75715e">	本方法的key就是这一组相同kv对的共同key
+</span><span style="color:#75715e">	把这一组所有的v作为一个迭代器传入我们的reduce 方法
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WordCountReducer</span> <span style="color:#66d9ef">extends</span> Reducer<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">reduce</span><span style="color:#f92672">(</span>Text key<span style="color:#f92672">,</span> Iterable<span style="color:#f92672">&lt;</span>IntWritable<span style="color:#f92672">&gt;</span> value<span style="color:#f92672">,</span> Conut context<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOExpception<span style="color:#f92672">,</span>Interrupted Exception<span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> count <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>IntWritable value<span style="color:#f92672">:</span> values<span style="color:#f92672">)</span><span style="color:#f92672">{</span>
+                count <span style="color:#f92672">+</span><span style="color:#f92672">=</span> value<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        context<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>key<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> IntWritable<span style="color:#f92672">(</span>count<span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><h4 id="driver">Driver编写</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#75715e">/**
+</span><span style="color:#75715e">这个类就是mr程序运行时候的主类, 本类中组装了一些程序运行的时候所需信息
+</span><span style="color:#75715e">*/</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WordCountDriver</span><span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[</span><span style="color:#f92672">]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception<span style="color:#f92672">{</span>
+        <span style="color:#75715e">// 通过Job来封装本次mr的相关信息
+</span><span style="color:#75715e"></span>        Configuration conf <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Configuration<span style="color:#f92672">(</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        Job job <span style="color:#f92672">=</span> Job<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">(</span>conf<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        
+        <span style="color:#75715e">//指定本次mr job jar包运行主类
+</span><span style="color:#75715e"></span>        job<span style="color:#f92672">.</span><span style="color:#a6e22e">setJarByClass</span><span style="color:#f92672">(</span>WordCountDriver<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        
+        <span style="color:#75715e">//指定本次mr所用的mapper reducer类分别是
+</span><span style="color:#75715e"></span>        job<span style="color:#f92672">.</span><span style="color:#a6e22e">setMapperClass</span><span style="color:#f92672">(</span>WordCountMapper<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        job<span style="color:#f92672">.</span><span style="color:#a6e22e">setReducerClass</span><span style="color:#f92672">(</span>WordCountReducer<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        
+        <span style="color:#75715e">//指定本次mr mapper阶段的输出 kv 类型
+</span><span style="color:#75715e"></span>        job<span style="color:#f92672">.</span><span style="color:#a6e22e">setMapOutputKeyClass</span><span style="color:#f92672">(</span>Text<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        job<span style="color:#f92672">.</span><span style="color:#a6e22e">setMapOutputValueClass</span><span style="color:#f92672">(</span>IntWritable<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        
+        <span style="color:#75715e">//指定本次mr最终输出的kv 类型
+</span><span style="color:#75715e"></span>        job<span style="color:#f92672">.</span><span style="color:#a6e22e">setOutputKeyClass</span><span style="color:#f92672">(</span>Text<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        job<span style="color:#f92672">.</span><span style="color:#a6e22e">setOutputValueClass</span><span style="color:#f92672">(</span>IntWritable<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        
+        <span style="color:#75715e">//指定本次mr 输入的数据路径 和最终输出结果存放在什么位置
+</span><span style="color:#75715e"></span>        FileInputFormat<span style="color:#f92672">.</span><span style="color:#a6e22e">setInputPaths</span><span style="color:#f92672">(</span>job<span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;/wordcount/input&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        FileOuntputFormat<span style="color:#f92672">.</span><span style="color:#a6e22e">setOutputPath</span><span style="color:#f92672">(</span>job<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> Path<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;wordcount/output&#34;</span><span style="color:#f92672">)</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        
+        <span style="color:#75715e">//job.submit
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">//提交, 并打印执行情况
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">boolean</span> b <span style="color:#f92672">=</span> job<span style="color:#f92672">.</span><span style="color:#a6e22e">waitForCompletion</span><span style="color:#f92672">(</span><span style="color:#66d9ef">true</span><span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">exit</span><span style="color:#f92672">(</span>b<span style="color:#f92672">?</span>0<span style="color:#f92672">:</span>1<span style="color:#f92672">)</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div></article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div class="utterances"></div>
+<script src="https://utteranc.es/client.js"
+        repo="originx-23/originx-23.github.io"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+
+
+  <div class="footer container-lg width-full p-responsive" role="contentinfo">
+    <div
+        class="position-relative d-flex flex-row-reverse flex-lg-row flex-wrap flex-lg-nowrap flex-justify-center flex-lg-justify-between pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
+        <ul
+            class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+            <li class="mr-3 mr-lg-0">© 2020. Theme by <a href="https://github.com/MeiK2333/github-style"><span>github-style</span></a></a></li>
+        </ul>
+
+        <a aria-label="Homepage" title="Xover" class="footer-octicon d-none d-lg-block mx-lg-4"
+            href="https://originx-23.github.io/">
+            <svg height="24" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="24"
+                aria-hidden="true">
+                <path fill-rule="evenodd"
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                </path>
+            </svg>
+        </a>
+        <ul
+            class="list-style-none d-flex flex-wrap col-12 col-lg-5 flex-justify-center flex-lg-justify-between mb-2 mb-lg-0">
+        </ul>
+    </div>
+    <div class="d-flex flex-justify-center pb-6">
+        <span class="f6 text-gray-light"></span>
+    </div>
+</div>
+
+<script crossorigin="anonymous"
+    type="application/javascript" src="https://originx-23.github.io/js/frameworks.js"></script>
+
+<script crossorigin="anonymous" async="async"
+    type="application/javascript" src="https://originx-23.github.io/js/github-bootstrap.js"></script>
+<script>
+    let classs = ['pinned-item-desc', 'text-gray', 'text-small', 'd-block', 'mt-2', 'mb-3'];
+    const pinned_posts = document.getElementsByName('pinned-post');
+    for (let i = 0; i < pinned_posts.length; i++) {
+        for (let j = 0; j < classs.length; j++) {
+            const ps = pinned_posts[i].getElementsByTagName('p');
+            for (let k = 0; k < ps.length; k++) {
+                ps[k].classList.add(classs[j]);
+            }
+        }
+    }
+    classs = [ 'd-inline-block', 'text-gray', 'mb-2', 'pr-4'];
+    const posts_posts = document.getElementsByName('posts-post');
+    for (let i = 0; i < posts_posts.length; i++) {
+        for (let j = 0; j < classs.length; j++) {
+            const ps = posts_posts[i].getElementsByTagName('p');
+            for (let k = 0; k < ps.length; k++) {
+                ps[k].classList.add(classs[j]);
+            }
+        }
+    }
+</script>
+
+</body>
+
+</html>
