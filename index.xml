@@ -7,10 +7,69 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-ch</language>
     <copyright>© 2020. Theme by &lt;a href=&#34;https://github.com/MeiK2333/github-style&#34;&gt;&lt;span&gt;github-style&lt;/span&gt;&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 19 Mar 2020 11:41:16 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Mar 2020 17:41:16 +0800</lastBuildDate>
     
 	<atom:link href="https://originx-23.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go基础</title>
+      <link>https://originx-23.github.io/post/go%E5%9F%BA%E7%A1%80/</link>
+      <pubDate>Fri, 20 Mar 2020 17:41:16 +0800</pubDate>
+      
+      <guid>https://originx-23.github.io/post/go%E5%9F%BA%E7%A1%80/</guid>
+      <description>Go基础   := 自动推导类型, 只能在第一次 生成时候使用
+  Println 自动加换行符 Printf 格式化输出
+      支持多重赋值写法 i, j := 20, 30 i, j = j, i
+  _ 匿名变量, 丢弃数据不处理
+  变量: 程序运行期间, 可以改变的量, 变量声明需要var var	(多个变量的声明) 常量: 程序运行期间, 不可以改变的量, 常量声明需要const const (多个常量的声明)
+  iota:
+ iota 常量自动生成器, 每个一行, 自动累加1 iota 给常量赋值使用 iota遇到const, 重置为0 一个const里面,可以只写一个iota, 下面省略 同一行的iota, 值都一样    数据类型
+  布尔类型 默认值false</description>
+    </item>
+    
+    <item>
+      <title>Hadoop详解</title>
+      <link>https://originx-23.github.io/post/hadoop/</link>
+      <pubDate>Fri, 20 Mar 2020 17:41:16 +0800</pubDate>
+      
+      <guid>https://originx-23.github.io/post/hadoop/</guid>
+      <description>定义 狭义 HDFS:	分布式文件系统, 解决海量数据存储
+YARN: 作业调度和集群资源管理框架, 解决资源任务调度
+MAPREDUCE: 分布式运算编程框架, 解决海量数据计算
+广义 生态圈
+发展 谷歌的三篇论文:
+ 谷歌分布式文件系统(GFS) 谷歌版的MAPREDUCE系统 bigtable  特性优点 扩容能力
+成本低
+高效率
+可靠性
+集群搭建 集群简介(物理上分离, 逻辑上在一起) HDFS: NameNode, DataNode, SecondaryNameNode
+YARN: ResourcManager, NodeManager
+MapReduce: 分布式运算框架, 打包运行在HDFS集群上.
+部署方式 Standalone mode	独立模式
+Pseudo-Distributed mode	伪分布式
+Cluster mode	集群模式
+前两种都是在单机上部署.
+服务器系统设置 同步时间 yum install ntpdatentpdate cn.pool.ntp.org设置主机名 vi /etc/sysconfig/networkNETWORKING=yesHOSTNAME=node-1配置IP,主机名映射 vi /etc/hosts192.168.33.101	node-1192.168.33.102	node-2192.168.33.103	node-3配置ssh免密登录 # 生成ssh免登陆密钥ssh-keygen -t rsa	(四个回车)将生成的id_rsa.</description>
+    </item>
+    
+    <item>
+      <title>keystone详解</title>
+      <link>https://originx-23.github.io/post/keystone%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Fri, 20 Mar 2020 17:41:16 +0800</pubDate>
+      
+      <guid>https://originx-23.github.io/post/keystone%E8%AF%A6%E8%A7%A3/</guid>
+      <description>keystone详解 keystone架构 基本概念 　官方介绍
+　1.User：has account credentials, is associated with one or more projects or domains
+　user是账户凭证，是与一个或多个项目或相关的域
+　2.Group: a collection of users, is associated with one or more projects or domains
+　group就是用户的一个集合，与一个或多个项目或相关的域
+　3.Project(Tenant)： unit of ownership in OpenStack, contains one or more users
+　project(tenant)是一个单位，指在openstack中可用的资源，它包含一个或多个用户
+　4.Domain：unit of ownership in OpenStack, contains users, groups and projects
+　domain是一个单位，它包含用户、组和项目
+　5.Role：a first-class piece of metadata associated with many user-project pairs</description>
+    </item>
     
     <item>
       <title>Openstack Attach Volume Flow</title>
